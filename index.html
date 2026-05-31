@@ -11,290 +11,633 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Sistema de vidriera digital 4K para inmobiliarias. Exhibí tus propiedades en pantalla con código QR automático y contacto directo por WhatsApp.">
+    <meta name="description" content="Vidriera digital 4K para inmobiliarias. Publicá en Zonaprop, Argenprop y MercadoLibre desde el celular en 2 minutos.">
     <link rel="icon" type="image/png" href="tvd.png">
-    <title>TuVidrieraDigital | Vidriera Digital para Inmobiliarias</title>
+    <title>TuVidrieraDigital | Dejá de imprimir. Empezá a vender.</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --blue: #0056b3;
-            --dark: #121212;
-            --gray: #f8f9fa;
+            --red: #C0392B;
+            --red-dark: #922b21;
+            --black: #0a0a0a;
+            --white: #ffffff;
+            --gray: #f4f4f4;
+            --gray-mid: #e0e0e0;
+            --text: #1a1a1a;
+            --text-soft: #666;
         }
-        body { 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            line-height: 1.6; 
-            color: #333; 
-            margin: 0; 
-            background-color: var(--gray); 
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--white);
+            color: var(--text);
+            line-height: 1.6;
         }
-        .container { 
-            max-width: 1000px; 
-            margin: 40px auto; 
-            background: white; 
-            padding: 50px; 
-            border-radius: 12px; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
+
+        /* ── HERO ── */
+        .hero {
+            background: var(--black);
+            color: var(--white);
+            padding: 60px 24px 70px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
         }
-        header { 
-            border-bottom: 3px solid var(--blue); 
-            margin-bottom: 40px; 
-            padding-bottom: 24px;
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 50% 0%, rgba(192,57,43,0.18) 0%, transparent 70%);
+            pointer-events: none;
         }
-        .header-logo {
-            width: 100%;
-            margin-bottom: 12px;
-        }
-        .header-logo img {
-            width: 100%;
-            height: auto;
+        .hero-logo {
+            width: 220px;
+            margin: 0 auto 32px;
             display: block;
+            filter: brightness(0) invert(1);
         }
-        .header-tagline {
-            font-size: 1rem;
-            color: #555;
-            font-weight: 400;
+        .hero-tag {
+            font-family: 'DM Mono', monospace;
+            font-size: 10px;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--red);
+            margin-bottom: 16px;
         }
-        h2 { 
-            color: var(--blue); 
-            border-left: 5px solid var(--blue); 
-            padding-left: 15px; 
-            margin-top: 0;
+        .hero h1 {
+            font-size: clamp(2rem, 6vw, 3.6rem);
+            font-weight: 900;
+            line-height: 1.05;
+            letter-spacing: -1.5px;
             margin-bottom: 20px;
         }
-        h3 { color: var(--blue); margin-top: 0; margin-bottom: 15px; font-size: 1.3rem; }
-        p { margin-bottom: 15px; text-align: justify; }
-        .grid-pro {
-            display: grid;
-            grid-template-columns: 1fr 1fr; 
-            gap: 40px; 
-            align-items: start;
-            margin-top: 50px;
-            margin-bottom: 50px;
+        .hero h1 span { color: var(--red); }
+        .hero-sub {
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            color: rgba(255,255,255,0.6);
+            max-width: 560px;
+            margin: 0 auto 36px;
+            font-weight: 400;
         }
-        .video-box { 
-            background: #000; 
-            border-radius: 12px; 
-            overflow: hidden; 
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2); 
-            border: 1px solid #ddd;
-            width: 100%;
+        .hero-ctas {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
         }
-        .video-vertical-panel {
-            max-width: 300px;
-            margin: 0 auto;
+        .btn-primary {
+            padding: 14px 32px;
+            background: var(--red);
+            color: var(--white);
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 900;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: background 0.2s;
         }
-        video { width: 100%; display: block; }
-        .footer { 
-            margin-top: 60px; 
-            text-align: center; 
-            color: var(--dark); 
-            border-top: 1px solid #eee; 
-            padding-top: 30px; 
+        .btn-primary:hover { background: var(--red-dark); }
+        .btn-ghost {
+            padding: 14px 32px;
+            background: transparent;
+            color: var(--white);
+            border: 2px solid rgba(255,255,255,0.25);
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 700;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: border-color 0.2s;
         }
-        .footer-logo {
-            width: 70%;
-            margin: 0 auto 15px auto;
+        .btn-ghost:hover { border-color: rgba(255,255,255,0.6); }
+
+        /* ── TV MOCK ── */
+        .tv-wrap {
+            max-width: 680px;
+            margin: 50px auto 0;
+            padding: 0 16px;
         }
-        .footer-logo img {
-            width: 100%;
-            height: auto;
+        .tv-frame {
+            background: #1e1e1e;
+            border-radius: 8px;
+            padding: 10px 10px 18px;
+            border: 1px solid #333;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+        }
+        .tv-screen {
+            background: #000;
+            border-radius: 4px;
+            overflow: hidden;
+            aspect-ratio: 16/9;
+        }
+        .tv-screen video { width: 100%; display: block; }
+        .tv-dot {
+            width: 6px; height: 6px;
+            background: #aa0000;
+            border-radius: 50%;
+            margin: 6px auto 0;
+        }
+        .tv-legs {
+            display: flex;
+            justify-content: center;
+            gap: 100px;
+        }
+        .tv-leg-top { width: 12px; height: 10px; background: #1e1e1e; border: 1px solid #333; border-top: none; }
+        .tv-leg-bot { width: 20px; height: 4px; background: #1e1e1e; border: 1px solid #333; border-top: none; }
+
+        /* ── STATS BAR ── */
+        .stats-bar {
+            background: var(--red);
+            padding: 20px 24px;
+            display: flex;
+            justify-content: center;
+            gap: 0;
+            flex-wrap: wrap;
+        }
+        .stat {
+            text-align: center;
+            padding: 8px 32px;
+            color: var(--white);
+            border-right: 1px solid rgba(255,255,255,0.2);
+        }
+        .stat:last-child { border-right: none; }
+        .stat-num {
+            font-size: 1.8rem;
+            font-weight: 900;
+            line-height: 1;
             display: block;
         }
-        .contact-info {
-            line-height: 1.4;
-            font-size: 1rem;
+        .stat-lbl {
+            font-family: 'DM Mono', monospace;
+            font-size: 9px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            opacity: 0.8;
+            margin-top: 3px;
+            display: block;
         }
-        ul { margin-bottom: 20px; padding-left: 20px; }
-        li { margin-bottom: 10px; }
-        section {
-            padding-top: 40px;
-            border-top: 1px solid #e0e0e0;
-            margin-top: 10px;
+
+        /* ── SECTIONS ── */
+        .section {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 64px 24px;
         }
-        section:first-of-type {
-            border-top: none;
-            padding-top: 0;
+        .section-label {
+            font-family: 'DM Mono', monospace;
+            font-size: 9px;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--red);
+            margin-bottom: 12px;
         }
-        @media (max-width: 768px) {
-            .container { 
-                margin: 0;
-                padding: 20px 18px; 
-                border-radius: 0;
-                box-shadow: none;
-            }
-            .grid-pro { 
-                grid-template-columns: 1fr; 
-                gap: 20px;
-                margin-top: 30px;
-                margin-bottom: 30px;
-            }
-            .header-logo img { width: 100%; }
-            .footer-logo { width: 85%; }
+        .section h2 {
+            font-size: clamp(1.6rem, 4vw, 2.4rem);
+            font-weight: 900;
+            letter-spacing: -0.5px;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+        .section p {
+            color: var(--text-soft);
+            font-size: 1.05rem;
+            max-width: 620px;
+            margin-bottom: 16px;
+        }
+        .divider { border: none; border-top: 1px solid var(--gray-mid); }
+
+        /* ── PROBLEMA/SOLUCION ── */
+        .prob-sol {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2px;
+            margin: 40px 0;
+        }
+        .prob-box, .sol-box {
+            padding: 28px;
+            border-radius: 10px;
+        }
+        .prob-box {
+            background: var(--gray);
+        }
+        .sol-box {
+            background: var(--black);
+            color: var(--white);
+        }
+        .prob-box h3, .sol-box h3 {
+            font-family: 'DM Mono', monospace;
+            font-size: 9px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 14px;
+            opacity: 0.5;
+        }
+        .prob-box ul, .sol-box ul {
+            list-style: none;
+            padding: 0;
+        }
+        .prob-box li, .sol-box li {
+            font-size: 0.95rem;
+            padding: 6px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+        .sol-box li { border-bottom-color: rgba(255,255,255,0.08); }
+        .prob-box li::before { content: '✕'; color: #aaa; font-size: 11px; margin-top: 3px; flex-shrink: 0; }
+        .sol-box li::before { content: '✓'; color: var(--red); font-size: 11px; margin-top: 3px; flex-shrink: 0; }
+
+        /* ── PORTALES ── */
+        .portales-section {
+            background: var(--black);
+            color: var(--white);
+            padding: 64px 24px;
+            text-align: center;
+        }
+        .portales-section .section-label { color: var(--red); }
+        .portales-section h2 { color: var(--white); margin: 0 auto 12px; }
+        .portales-section p { color: rgba(255,255,255,0.5); margin: 0 auto 40px; }
+        .flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0;
+            flex-wrap: wrap;
+            max-width: 800px;
+            margin: 0 auto 48px;
+        }
+        .flow-node {
+            background: #1a1a1a;
+            border: 1px solid #2a2a2a;
+            border-radius: 10px;
+            padding: 16px 20px;
+            text-align: center;
+            min-width: 110px;
+        }
+        .flow-node-main {
+            background: var(--red);
+            border-color: var(--red-dark);
+        }
+        .flow-node-icon { font-size: 1.6rem; display: block; margin-bottom: 4px; }
+        .flow-node-name {
+            font-family: 'DM Mono', monospace;
+            font-size: 9px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            opacity: 0.7;
+        }
+        .flow-arrow {
+            font-size: 1.2rem;
+            color: #444;
+            padding: 0 8px;
+        }
+        .portales-list {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 16px;
+        }
+        .portal-chip {
+            background: #1a1a1a;
+            border: 1px solid #2a2a2a;
+            border-radius: 6px;
+            padding: 8px 18px;
+            font-family: 'DM Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.6);
+        }
+        .portal-chip.destacado {
+            border-color: var(--red);
+            color: var(--white);
+        }
+
+        /* ── FEATURES GRID ── */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2px;
+            margin: 40px 0;
+        }
+        .feature-card {
+            background: var(--gray);
+            padding: 24px;
+            border-radius: 10px;
+        }
+        .feature-icon {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+        .feature-title {
+            font-size: 0.9rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+            margin-bottom: 6px;
+        }
+        .feature-desc {
+            font-size: 0.85rem;
+            color: var(--text-soft);
+            line-height: 1.5;
+        }
+
+        /* ── PRECIO ── */
+        .precio-section {
+            background: var(--gray);
+            padding: 64px 24px;
+            text-align: center;
+        }
+        .precio-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 40px;
+            max-width: 480px;
+            margin: 32px auto 0;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+            border: 2px solid var(--gray-mid);
+        }
+        .precio-card h3 {
+            font-family: 'DM Mono', monospace;
+            font-size: 10px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--text-soft);
+            margin-bottom: 16px;
+        }
+        .precio-monto {
+            font-size: 2.8rem;
+            font-weight: 900;
+            letter-spacing: -2px;
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+        .precio-nota {
+            font-family: 'DM Mono', monospace;
+            font-size: 10px;
+            color: var(--text-soft);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 28px;
+        }
+        .precio-list {
+            list-style: none;
+            text-align: left;
+            margin-bottom: 28px;
+        }
+        .precio-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid var(--gray);
+            font-size: 0.9rem;
+            display: flex;
+            gap: 8px;
+            align-items: flex-start;
+        }
+        .precio-list li::before { content: '✓'; color: var(--red); font-weight: 900; flex-shrink: 0; }
+
+        /* ── CTA FINAL ── */
+        .cta-section {
+            background: var(--black);
+            color: var(--white);
+            padding: 80px 24px;
+            text-align: center;
+        }
+        .cta-section h2 {
+            font-size: clamp(1.8rem, 5vw, 3rem);
+            font-weight: 900;
+            letter-spacing: -1px;
+            line-height: 1.1;
+            margin-bottom: 16px;
+        }
+        .cta-section h2 span { color: var(--red); }
+        .cta-section p {
+            color: rgba(255,255,255,0.5);
+            max-width: 480px;
+            margin: 0 auto 36px;
+        }
+        .cta-btns {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* ── FOOTER ── */
+        .footer {
+            background: #050505;
+            padding: 32px 24px;
+            text-align: center;
+            border-top: 1px solid #1a1a1a;
+        }
+        .footer-logo { width: 160px; margin: 0 auto 16px; filter: brightness(0) invert(1); opacity: 0.4; display: block; }
+        .footer-info {
+            font-family: 'DM Mono', monospace;
+            font-size: 10px;
+            color: #444;
+            letter-spacing: 0.1em;
+            line-height: 2;
+        }
+
+        /* ── MOBILE ── */
+        @media (max-width: 640px) {
+            .prob-sol { grid-template-columns: 1fr; }
+            .features-grid { grid-template-columns: 1fr 1fr; }
+            .stat { padding: 8px 18px; }
+            .flow { gap: 6px; }
+            .flow-arrow { display: none; }
+        }
+        @media (max-width: 400px) {
+            .features-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <header>
-        <div class="header-logo">
-            <img src="tuvidriera.png" alt="TuVidrieraDigital">
+<!-- ══ HERO ══ -->
+<section class="hero">
+    <img src="tuvidriera.png" alt="TuVidrieraDigital" class="hero-logo">
+    <div class="hero-tag">Sistema de vidriera digital para inmobiliarias</div>
+    <h1>Dejá de imprimir.<br><span>Empezá a vender.</span></h1>
+    <p class="hero-sub">Una pantalla 4K en tu vidriera que publica en Zonaprop, Argenprop y MercadoLibre — desde el celular, en 2 minutos.</p>
+    <div class="hero-ctas">
+        <a href="https://wa.me/5491156131930?text=Hola%2C%20quiero%20una%20demo%20de%20TuVidrieraDigital" target="_blank" class="btn-primary">Pedir demo gratuita</a>
+        <a href="#como-funciona" class="btn-ghost">Ver cómo funciona</a>
+    </div>
+    <div class="tv-wrap">
+        <div class="tv-frame">
+            <div class="tv-screen">
+                <video autoplay muted loop playsinline>
+                    <source src="vshowcaseH.mp4" type="video/mp4">
+                </video>
+            </div>
+            <div class="tv-dot"></div>
         </div>
-        <div class="header-tagline">Estrategia de Transformación Digital para Inmobiliarias</div>
-    </header>
+        <div class="tv-legs">
+            <div class="tv-leg-top"></div><div class="tv-leg-top"></div>
+        </div>
+        <div class="tv-legs">
+            <div class="tv-leg-bot"></div><div class="tv-leg-bot"></div>
+        </div>
+    </div>
+</section>
 
-    <section>
-        <h2>1. La vidriera sigue siendo el primer punto de contacto</h2>
-        <p>Antes de entrar, antes de llamar, antes de buscar en internet — el potencial cliente pasa por la vereda. La vidriera es el primer filtro de confianza de cualquier inmobiliaria: comunica presencia, profesionalismo y cartera disponible en segundos.</p>
-        <p>El problema no es la vidriera en sí. El problema es que la mayoría sigue funcionando con la tecnología de hace 30 años: papel impreso, carteles fijos, información desactualizada. Mientras tanto, el resto del negocio ya es digital.</p>
-        <p>TuVidrieraDigital digitaliza ese espacio. Convierte la vidriera física en una pantalla 4K que exhibe el portfolio actualizado de la inmobiliaria en tiempo real, con la misma imagen profesional que se espera de un negocio moderno — sin depender de impresiones, sin demoras, sin información vencida.</p>
-    </section>
+<!-- ══ STATS ══ -->
+<div class="stats-bar">
+    <div class="stat"><span class="stat-num">4K</span><span class="stat-lbl">Resolución</span></div>
+    <div class="stat"><span class="stat-num">24/7</span><span class="stat-lbl">Siempre activa</span></div>
+    <div class="stat"><span class="stat-num">2 min</span><span class="stat-lbl">Para publicar</span></div>
+    <div class="stat"><span class="stat-num">$0</span><span class="stat-lbl">Abono mensual</span></div>
+</div>
 
-    <section class="grid-pro" style="padding-top:40px; border-top: 1px solid #e0e0e0;">
-        <div>
-            <h2>2. Una vidriera que trabaja las 24 horas</h2>
-            <p>La pantalla muestra el portfolio completo de propiedades con fotos en alta resolución, precios actualizados y datos clave — rotando de forma automática, sin intervención del equipo. Cualquier cambio publicado desde el panel aparece en pantalla en segundos.</p>
-            <p>Además, cada propiedad exhibida genera su propio código QR dinámico: el interesado lo escanea desde la vereda y llega directamente a un mensaje de WhatsApp dirigido a la inmobiliaria, con los datos de esa propiedad ya cargados. Sin formularios, sin búsqueda de teléfono, sin pasos intermedios — a cualquier hora del día.</p>
+<!-- ══ PROBLEMA / SOLUCIÓN ══ -->
+<div class="section" id="como-funciona">
+    <div class="section-label">El problema</div>
+    <h2>La vidriera de papel<br>ya no alcanza.</h2>
+    <p>Mientras tu negocio es digital, tu vidriera sigue funcionando como en los 90. Eso tiene un costo que no siempre se ve.</p>
+    <div class="prob-sol">
+        <div class="prob-box">
+            <h3>Hoy</h3>
             <ul>
-                <li><strong>Presencia permanente:</strong> La vidriera trabaja de noche, los fines de semana y los feriados.</li>
-                <li><strong>Información siempre vigente:</strong> Sin carteles desactualizados ni propiedades ya vendidas en pantalla.</li>
-                <li><strong>Captación inmediata:</strong> El interesado se contacta en el momento de mayor interés, no horas después.</li>
+                <li>Carteles impresos que se desactualizan</li>
+                <li>Propiedades ya vendidas todavía en vitrina</li>
+                <li>Cero contacto fuera del horario de atención</li>
+                <li>Gasto recurrente en impresión y diseño</li>
+                <li>Carga manual y duplicada en cada portal</li>
             </ul>
         </div>
-
-        <!-- MARCO TV -->
-        <div style="display: flex; flex-direction: column; max-width: 420px; margin-left: auto;">
-            <div style="background: #2a2a2a; border-radius: 6px; padding: 8px 8px 14px 8px; position: relative; border: 1px solid #333;">
-                <div style="position: absolute; top: 50%; left: 7px; transform: translateY(-50%); width: 2px; height: 20px; background: #3a3a3a; border-radius: 2px;"></div>
-                <div style="background: #000; border-radius: 3px; overflow: hidden; border: 1px solid #111; aspect-ratio: 16/9;">
-                    <video autoplay muted loop playsinline style="width:100%; display:block;">
-                        <source src="vshowcaseH.mp4" type="video/mp4">
-                    </video>
-                </div>
-                <div style="display: flex; justify-content: center; margin-top: 6px;">
-                    <div style="width: 6px; height: 6px; background: #aa0000; border-radius: 50%;"></div>
-                </div>
-            </div>
-            <div style="display: flex; justify-content: center; gap: 127px;">
-                <div style="width: 12px; height: 12px; background: #2a2a2a; border: 1px solid #333; border-top: none;"></div>
-                <div style="width: 12px; height: 12px; background: #2a2a2a; border: 1px solid #333; border-top: none;"></div>
-            </div>
-            <div style="display: flex; justify-content: center; gap: 120px;">
-                <div style="width: 18px; height: 4px; background: #2a2a2a; border: 1px solid #333; border-top: none;"></div>
-                <div style="width: 18px; height: 4px; background: #2a2a2a; border: 1px solid #333; border-top: none;"></div>
-            </div>
-        </div>
-        <!-- FIN MARCO TV -->
-    </section>
-
-    <section>
-        <h2>3. Arquitectura del Sistema: Los 4 Pilares Operativos</h2>
-        
-        <div class="grid-pro">
-            <div>
-                <h3>3.1 Panel de Carga (Uploader)</h3>
-                <p>Interfaz optimizada para dispositivos móviles y de escritorio. Permite publicar propiedades y generar el código QR correspondiente de forma automática, sin intervención de diseño ni configuraciones adicionales.</p>
-                <ul>
-                    <li><strong>Carga ágil:</strong> Fotografías, precio y descripción ingresados desde cualquier dispositivo en segundos.</li>
-                    <li><strong>QR automático:</strong> Cada propiedad genera su código al momento de la publicación, sin herramientas externas ni pasos adicionales.</li>
-                    <li><strong>Sin instalación:</strong> Accesible desde cualquier navegador. Sin aplicaciones, sin configuraciones, sin fricción operativa.</li>
-                    <li><strong>Publicación en tiempo real:</strong> La propiedad aparece en la pantalla de la vidriera de forma inmediata.</li>
-                    <li><strong>Gestión de imágenes:</strong> Hasta 5 fotografías por propiedad con previsualización previa a la publicación.</li>
-                    <li><strong>Etiquetas destacadas:</strong> Atributos como "Oportunidad", "Luminoso" o "Frente" para resaltar características clave en pantalla.</li>
-                    <li><strong>Acceso por PIN:</strong> Sistema de autenticación que protege la gestión de datos ante accesos no autorizados.</li>
-                </ul>
-            </div>
-            <div class="video-box video-vertical-panel">
-                <video autoplay muted loop playsinline>
-                    <source src="uploader.mp4" type="video/mp4">
-                </video>
-            </div>
-        </div>
-
-        <div class="grid-pro">
-            <div class="video-box">
-                <video autoplay muted loop playsinline>
-                    <source src="Videoindex.mp4" type="video/mp4">
-                </video>
-            </div>
-            <div>
-                <h3>3.2 Central de Gestión</h3>
-                <p>Panel de administración integral para el control del inventario de propiedades. Permite activar, editar o pausar avisos de forma individual con efecto inmediato sobre la pantalla, sin intermediarios ni asistencia técnica.</p>
-            </div>
-        </div>
-
-        <h3>3.3 Editor Dinámico</h3>
-        <p>Herramienta de actualización permanente que permite modificar precios, descripciones o pausar propiedades en cualquier momento. El código QR en pantalla siempre dirige al canal de contacto correcto, eliminando los errores característicos del soporte físico: números desactualizados, propiedades ya comercializadas o información incorrecta.</p>
-
-        <h3>3.4 Showcase 4K (Motor de Exhibición)</h3>
-        <p>Motor gráfico de alta disponibilidad con presentación cinematográfica, desarrollado específicamente para pantallas de gran formato, alta resolución y condiciones de iluminación exterior. La vidriera refleja cada publicación o modificación de forma automática e instantánea, sin requerir intervención manual.</p>
-    </section>
-
-    <section>
-        <h2>4. Seguridad y Autonomía Operativa</h2>
-        <p>La continuidad e integridad de la operación comercial se garantizan mediante dos mecanismos de control de acceso:</p>
-        <ul>
-            <li><strong>Autenticación por PIN:</strong> Sistema de validación jerarquizado que restringe la carga y modificación de datos sensibles a usuarios autorizados.</li>
-            <li><strong>Gestión autónoma de accesos:</strong> El titular administra sus credenciales de forma independiente, con capacidad de revocar permisos de colaboradores en cualquier momento y sin asistencia externa.</li>
-        </ul>
-    </section>
-
-    <section>
-        <h2>5. Infraestructura Tecnológica: Google Firebase</h2>
-        <p>La plataforma opera sobre Google Firebase, la misma infraestructura en la que funcionan aplicaciones de escala global como Instagram, Spotify y Duolingo. Esta elección tecnológica garantiza tres atributos críticos para la operación diaria:</p>
-        <ul>
-            <li><strong>Velocidad:</strong> Actualización y visualización de datos en tiempo real, con latencias de milisegundos.</li>
-            <li><strong>Disponibilidad:</strong> Operación continua 24/7 respaldada por la infraestructura de Google Cloud.</li>
-            <li><strong>Eficiencia de costos:</strong> El sistema está optimizado para operar dentro de la capa gratuita de Firebase, reduciendo los costos de mantenimiento a niveles prácticamente nulos.</li>
-        </ul>
-    </section>
-
-    <section>
-        <h2>6. Implementación Integral (Proyecto Llave en Mano)</h2>
-        <p>El modelo de entrega está diseñado para garantizar la continuidad operativa desde el primer día, sin curvas de aprendizaje ni dependencias externas:</p>
-        <ul>
-            <li><strong>Hardware de producción:</strong> Mini PC de configuración industrial con arranque automático ante cortes de energía y bloqueo de actualizaciones no programadas.</li>
-            <li><strong>Base de datos propia:</strong> La totalidad de las propiedades e imágenes queda almacenada en la cuenta personal de Firebase del cliente. Ningún tercero tiene acceso a su información.</li>
-            <li><strong>Inversión única:</strong> Sin abonos mensuales ni costos recurrentes. La amortización se acelera mediante la eliminación de gastos de impresión y el incremento directo en la tasa de captación de leads.</li>
-        </ul>
-    </section>
-
-    <section>
-        <h2>7. Ventana de Oportunidad</h2>
-        <p>En la mayoría de los barrios, ninguna inmobiliaria cuenta aún con este nivel de tecnología en su vidriera. Esa es la ventana de diferenciación disponible hoy. La inmobiliaria que adopta el sistema primero se posiciona como referente tecnológico de la zona, genera una diferencia visual inmediata frente a la competencia y atrae a los propietarios más exigentes. Esa ventaja competitiva se acota progresivamente a medida que otros actores del mercado local incorporan soluciones similares.</p>
-    </section>
-
-    <section style="text-align:center;">
-        <h2 style="border-left: none; padding-left: 0;">Solicite una Demostración</h2>
-        <p style="margin-bottom:25px; color:#555;">
-            Evaluamos su vidriera y le mostramos el sistema en funcionamiento, sin compromiso.
-        </p>
-        <div style="display:flex; justify-content:center; gap:15px; flex-wrap:wrap;">
-            <a href="mailto:info@tuvidrieradigital.com.ar?subject=Solicitud%20de%20Demostración&body=Hola%2C%20quiero%20ver%20una%20demo.%0A%0ANombre%3A%20%0ATel%C3%A9fono%3A%20%0AInmobiliaria%3A%20%0AZona%3A%20"
-               target="_blank"
-               rel="noopener noreferrer"
-               style="padding:12px 28px; border:1px solid #0056b3; color:#0056b3; text-decoration:none; border-radius:6px; font-weight:500;">
-               Enviar email
-            </a>
-            <a href="https://wa.me/5491156131930?text=Hola%2C%20quiero%20una%20demo%20de%20TuVidrieraDigital"
-               target="_blank"
-               style="padding:12px 28px; background:#0056b3; color:white; text-decoration:none; border-radius:6px; font-weight:500;">
-               Contactar por WhatsApp
-            </a>
-        </div>
-    </section>
-
-    <div class="footer">
-        <div class="footer-logo">
-            <img src="tuvidriera.png" alt="TuVidrieraDigital">
-        </div>
-        <div class="contact-info">
-            Juan Fernando Molina<br>
-            11 5613 1930<br>
-            info@tuvidrieradigital.com.ar
+        <div class="sol-box">
+            <h3>Con TVD</h3>
+            <ul>
+                <li>Pantalla 4K con tu cartera siempre actualizada</li>
+                <li>Cambios en pantalla en segundos desde el celular</li>
+                <li>QR en cada propiedad → WhatsApp directo a las 3am</li>
+                <li>Pago único, sin impresiones, sin abonos</li>
+                <li>Una carga publica en la vidriera y en todos los portales</li>
+            </ul>
         </div>
     </div>
 </div>
+
+<hr class="divider">
+
+<!-- ══ PORTALES ══ -->
+<section class="portales-section">
+    <div class="section-label">Integración con portales</div>
+    <h2 style="font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 900; letter-spacing: -0.5px; max-width: 600px; margin: 0 auto 12px;">Cargás una vez.<br>Aparecés en todos lados.</h2>
+    <p style="max-width: 520px;">Conectado a Tokko Broker, la carga que hacés en TVD se distribuye automáticamente a los principales portales del país.</p>
+
+    <div class="flow">
+        <div class="flow-node flow-node-main">
+            <span class="flow-node-icon">📱</span>
+            <span class="flow-node-name">TVD Uploader</span>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-node">
+            <span class="flow-node-icon">🔗</span>
+            <span class="flow-node-name">Tokko Broker</span>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-node">
+            <span class="flow-node-icon">🌐</span>
+            <span class="flow-node-name">Portales</span>
+        </div>
+    </div>
+
+    <div class="portales-list">
+        <div class="portal-chip destacado">Zonaprop</div>
+        <div class="portal-chip destacado">Argenprop</div>
+        <div class="portal-chip destacado">MercadoLibre</div>
+        <div class="portal-chip">Properati</div>
+        <div class="portal-chip">+ más</div>
+    </div>
+    <p style="margin-top: 20px; font-size: 0.85rem;">* Requiere cuenta Tokko Broker activa del cliente.</p>
+</section>
+
+<!-- ══ FEATURES ══ -->
+<div class="section">
+    <div class="section-label">El sistema</div>
+    <h2>Todo lo que incluye.</h2>
+    <div class="features-grid">
+        <div class="feature-card">
+            <span class="feature-icon">📺</span>
+            <div class="feature-title">Pantalla 4K</div>
+            <div class="feature-desc">Showcase horizontal y vertical para cualquier orientación de TV. Rotación automática de propiedades con fotos en alta resolución.</div>
+        </div>
+        <div class="feature-card">
+            <span class="feature-icon">📱</span>
+            <div class="feature-title">Carga desde el celular</div>
+            <div class="feature-desc">Formulario optimizado para móvil. Publicás fotos, precio y descripción en 2 minutos. Sin PC, sin complicaciones.</div>
+        </div>
+        <div class="feature-card">
+            <span class="feature-icon">⚡</span>
+            <div class="feature-title">Tiempo real</div>
+            <div class="feature-desc">Cualquier cambio aparece en pantalla en segundos. Precio actualizado, propiedad pausada o nueva publicación — al instante.</div>
+        </div>
+        <div class="feature-card">
+            <span class="feature-icon">📲</span>
+            <div class="feature-title">QR + WhatsApp</div>
+            <div class="feature-desc">Cada propiedad genera su QR dinámico. El interesado escanea desde la vereda y te escribe directo por WhatsApp, a cualquier hora.</div>
+        </div>
+        <div class="feature-card">
+            <span class="feature-icon">🔒</span>
+            <div class="feature-title">Acceso por PIN</div>
+            <div class="feature-desc">Sistema de autenticación que protege la gestión. Solo accede quien tenga el PIN. Cambio de credenciales en cualquier momento.</div>
+        </div>
+        <div class="feature-card">
+            <span class="feature-icon">🖥️</span>
+            <div class="feature-title">Hardware incluido</div>
+            <div class="feature-desc">Mini PC configurado, instalado y listo para funcionar. Arranque automático tras cortes de luz. Sin mantenimiento técnico.</div>
+        </div>
+    </div>
+</div>
+
+<hr class="divider">
+
+<!-- ══ PRECIO ══ -->
+<section class="precio-section">
+    <div class="section-label" style="text-align:center;">Inversión</div>
+    <h2 style="text-align:center; font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 900; letter-spacing: -0.5px;">Pago único. Sin sorpresas.</h2>
+    <div class="precio-card">
+        <h3>Llave en mano</h3>
+        <div class="precio-monto">$ 1.500.000</div>
+        <div class="precio-nota">ARS · Pago único · Sin abono mensual</div>
+        <ul class="precio-list">
+            <li>Mini PC configurado e instalado</li>
+            <li>Software TVD con todas las funciones</li>
+            <li>Integración con Tokko Broker</li>
+            <li>Panel de carga mobile</li>
+            <li>Central de gestión de propiedades</li>
+            <li>Soporte en la puesta en marcha</li>
+        </ul>
+        <a href="https://wa.me/5491156131930?text=Hola%2C%20quiero%20una%20demo%20de%20TuVidrieraDigital" target="_blank" class="btn-primary" style="display:block; text-align:center;">Solicitar demo gratuita</a>
+    </div>
+</section>
+
+<!-- ══ CTA FINAL ══ -->
+<section class="cta-section">
+    <div class="section-label" style="color: var(--red);">¿Listo para dar el paso?</div>
+    <h2>Tu competencia<br>todavía usa <span>papel.</span></h2>
+    <p>La primera inmobiliaria de cada zona que adopta TVD se posiciona como referente tecnológico. Esa ventana no dura para siempre.</p>
+    <div class="cta-btns">
+        <a href="https://wa.me/5491156131930?text=Hola%2C%20quiero%20una%20demo%20de%20TuVidrieraDigital" target="_blank" class="btn-primary">Pedir demo por WhatsApp</a>
+        <a href="mailto:info@tuvidrieradigital.com.ar?subject=Solicitud%20de%20Demo&body=Hola%2C%20quiero%20ver%20una%20demo.%0A%0ANombre%3A%20%0ATel%C3%A9fono%3A%20%0AInmobiliaria%3A%20%0AZona%3A%20" class="btn-ghost">Enviar email</a>
+    </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer class="footer">
+    <img src="tuvidriera.png" alt="TuVidrieraDigital" class="footer-logo">
+    <div class="footer-info">
+        Juan Fernando Molina &nbsp;·&nbsp; 11 5613 1930 &nbsp;·&nbsp; info@tuvidrieradigital.com.ar
+    </div>
+</footer>
 
 </body>
 </html>
