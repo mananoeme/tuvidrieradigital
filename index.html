@@ -423,6 +423,7 @@
             margin: 0 auto 36px;
         }
         .cta-btns {
+            flex-wrap: nowrap;
             display: flex;
             gap: 12px;
             justify-content: center;
@@ -548,11 +549,11 @@
             text-align: center;
             border-top: 1px solid #333;
         }
-        .footer-logo { width: 160px; margin: 0 auto 16px; filter: brightness(0) invert(1); opacity: 0.4; display: block; }
+        .footer-logo { width: 160px; margin: 0 auto 16px; filter: brightness(0) invert(1); opacity: 0.7; display: block; }
         .footer-info {
             font-family: 'DM Mono', monospace;
             font-size: 10px;
-            color: #444;
+            color: #999;
             letter-spacing: 0.1em;
             line-height: 2;
         }
@@ -675,12 +676,13 @@
 <!-- ══ FEATURES ══ -->
 <div class="section">
     <div class="section-label">El sistema</div>
-    <h2>Todo lo que incluye.</h2>
+    <h2>Cómo está compuesto.</h2>
+    <p>TVD tiene dos componentes independientes: el <strong>software</strong> (que instalamos nosotros) y el <strong>hardware</strong> (Mini PC que proveemos). La TV la elige y compra el cliente — cualquier marca, cualquier tamaño, cualquier posición en la vidriera.</p>
     <div class="features-grid">
         <div class="feature-card">
-            <span class="feature-icon">📺</span>
-            <div class="feature-title">Pantalla 4K</div>
-            <div class="feature-desc">Showcase horizontal y vertical para cualquier orientación de TV. Rotación automática de propiedades con fotos en alta resolución.</div>
+            <span class="feature-icon">🖥️</span>
+            <div class="feature-title">Tu TV, tu elección</div>
+            <div class="feature-desc">Compatible con cualquier TV con entrada HDMI. El cliente elige la marca, el tamaño y la posición que mejor le queda en su vidriera.</div>
         </div>
         <div class="feature-card">
             <span class="feature-icon">📱</span>
@@ -705,7 +707,7 @@
         <div class="feature-card">
             <span class="feature-icon">🖥️</span>
             <div class="feature-title">Hardware incluido</div>
-            <div class="feature-desc">Mini PC configurado, instalado y listo para funcionar. Arranque automático tras cortes de luz. Sin mantenimiento técnico.</div>
+            <div class="feature-desc">Mini PC configurado, instalado y listo para funcionar. Arranque automático tras cortes de luz. Datos guardados localmente — la vidriera sigue funcionando aunque se corte internet.</div>
         </div>
     </div>
 </div>
@@ -762,7 +764,7 @@
         <div class="plan-card">
             <div class="plan-badge">Empezá aquí</div>
             <div class="plan-nombre">TVD Portales</div>
-            <div class="plan-precio">$ 300.000</div>
+            <div class="plan-precio">$ 400.000</div>
             <div class="plan-nota">ARS · Pago único · Upgradeable</div>
             <ul class="plan-list">
                 <li>Software de carga simplificado</li>
@@ -802,12 +804,13 @@
         <div class="plan-card destacado">
             <div class="plan-badge">Plan completo</div>
             <div class="plan-nombre">TVD Vidriera + Portales</div>
-            <div class="plan-precio">$ 1.350.000</div>
+            <div class="plan-precio">$ 1.150.000</div>
             <div class="plan-nota">ARS · Pago único · Sin abono mensual</div>
+            <p style="font-size:0.8rem; background:#fff3f3; border:1px solid #f5c6c6; border-radius:6px; padding:8px 12px; color:var(--red); font-weight:700; margin-bottom:12px;">Ahorrás $ 100.000 vs contratar por separado</p>
             <ul class="plan-list">
                 <li>Software TVD — $ 500.000</li>
                 <li>Mini PC N100 Cymax — $ 350.000</li>
-                <li>Integración Tokko — $ 500.000</li>
+                <li>Integración Tokko — $ 300.000</li>
                 <li>Carga desde el celular</li>
                 <li>QR dinámico + WhatsApp directo</li>
                 <li>Central de gestión de propiedades</li>
@@ -819,17 +822,17 @@
         </div>
 
     </div>
-    <p style="text-align:center; font-size:0.8rem; color:#aaa; margin-top:16px;">* Planes con portales requieren cuenta Tokko Broker activa.</p>
+    <p style="text-align:center; font-size:0.8rem; color:#aaa; margin-top:16px;">* Planes con portales requieren cuenta Tokko Broker activa.<br>* TV no incluida — a elección del cliente, cualquier marca y tamaño.</p>
 </section>
 
 <!-- ══ CTA FINAL ══ -->
 <section class="cta-section">
     <div class="section-label" style="color: var(--red);">¿Listo para dar el paso?</div>
     <h2>Tu competencia<br>todavía usa <span>papel.</span></h2>
-    <p>La primera inmobiliaria de cada zona que adopta TVD se posiciona como referente tecnológico. Esa ventana no dura para siempre.</p>
+    <p>La primera inmobiliaria de cada zona que adopta TVD se posiciona como referente tecnológico.<br>Esa ventana no dura para siempre.</p>
     <div class="cta-btns">
         <a href="https://wa.me/5491156131930?text=Hola%2C%20quiero%20una%20demo%20de%20TuVidrieraDigital" target="_blank" class="btn-primary">Pedir demo por WhatsApp</a>
-        <a href="mailto:info@tuvidrieradigital.com.ar?subject=Solicitud%20de%20Demo&body=Hola%2C%20quiero%20ver%20una%20demo.%0A%0ANombre%3A%20%0ATel%C3%A9fono%3A%20%0AInmobiliaria%3A%20%0AZona%3A%20" class="btn-ghost">Enviar email</a>
+        <a href="mailto:info@tuvidrieradigital.com.ar?subject=Solicitud%20de%20Demo&body=Hola%2C%20quiero%20ver%20una%20demo.%0A%0ANombre%3A%20%0ATel%C3%A9fono%3A%20%0AInmobiliaria%3A%20%0AZona%3A%20" class="btn-ghost" style="white-space:nowrap;">Enviar email</a>
     </div>
 </section>
 
