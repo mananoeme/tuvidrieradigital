@@ -569,6 +569,23 @@
         @media (max-width: 400px) {
             .features-grid { grid-template-columns: 1fr; }
         }
+    
+        /* ── SCROLL ANIMATIONS ── */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .fade-in-delay-1 { transition-delay: 0.1s; }
+        .fade-in-delay-2 { transition-delay: 0.2s; }
+        .fade-in-delay-3 { transition-delay: 0.3s; }
+        .fade-in-delay-4 { transition-delay: 0.4s; }
+        .fade-in-delay-5 { transition-delay: 0.5s; }
+
     </style>
 </head>
 <body>
@@ -602,7 +619,7 @@
 </section>
 
 <!-- ══ STATS ══ -->
-<div class="stats-bar">
+<div class="stats-bar fade-in">
     <div class="stat"><span class="stat-num">4K</span><span class="stat-lbl">Resolución</span></div>
     <div class="stat"><span class="stat-num">24/7</span><span class="stat-lbl">Siempre activa</span></div>
     <div class="stat"><span class="stat-num">2 min</span><span class="stat-lbl">Para publicar</span></div>
@@ -610,7 +627,7 @@
 </div>
 
 <!-- ══ PROBLEMA / SOLUCIÓN ══ -->
-<div class="section" id="como-funciona">
+<div class="section fade-in" id="como-funciona">
     <div class="section-label">El problema</div>
     <h2>La vidriera de papel<br>ya no alcanza.</h2>
     <p>Mientras tu negocio es digital, tu vidriera sigue funcionando como en los 90. Eso tiene un costo que no siempre se ve.</p>
@@ -641,7 +658,7 @@
 <hr class="divider">
 
 <!-- ══ PORTALES ══ -->
-<section class="portales-section">
+<section class="portales-section fade-in">
     <div class="section-label">Integración con portales</div>
     <h2 style="font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 900; letter-spacing: -0.5px; max-width: 600px; margin: 0 auto 12px;">Cargás una vez.<br>Aparecés en todos lados.</h2>
     <p style="max-width: 520px;">Conectado a Tokko Broker, la carga que hacés en TVD se distribuye automáticamente a los principales portales del país.</p>
@@ -674,32 +691,32 @@
 </section>
 
 <!-- ══ FEATURES ══ -->
-<div class="section">
+<div class="section fade-in">
     <div class="section-label">El sistema</div>
     <h2>Cómo está compuesto.</h2>
     <p>TVD tiene dos componentes independientes: el <strong>software</strong> (que instalamos nosotros) y el <strong>hardware</strong> (Mini PC que proveemos). La TV la elige y compra el cliente — cualquier marca, cualquier tamaño, cualquier posición en la vidriera.</p>
     <div class="features-grid">
-        <div class="feature-card">
+        <div class="feature-card fade-in fade-in-delay-1">
             <span class="feature-icon">🖥️</span>
             <div class="feature-title">Tu TV, tu elección</div>
             <div class="feature-desc">Compatible con cualquier TV con entrada HDMI. El cliente elige la marca, el tamaño y la posición que mejor le queda en su vidriera.</div>
         </div>
-        <div class="feature-card">
+        <div class="feature-card fade-in fade-in-delay-2">
             <span class="feature-icon">📱</span>
             <div class="feature-title">Carga desde el celular</div>
             <div class="feature-desc">Formulario optimizado para móvil. Publicás fotos, precio y descripción en 2 minutos. Sin PC, sin complicaciones.</div>
         </div>
-        <div class="feature-card">
+        <div class="feature-card fade-in fade-in-delay-3">
             <span class="feature-icon">⚡</span>
             <div class="feature-title">Tiempo real</div>
             <div class="feature-desc">Cualquier cambio aparece en pantalla en segundos. Precio actualizado, propiedad pausada o nueva publicación — al instante.</div>
         </div>
-        <div class="feature-card">
+        <div class="feature-card fade-in fade-in-delay-4">
             <span class="feature-icon">📲</span>
             <div class="feature-title">QR + WhatsApp</div>
             <div class="feature-desc">Cada propiedad genera su QR dinámico. El interesado escanea desde la vereda y te escribe directo por WhatsApp, a cualquier hora.</div>
         </div>
-        <div class="feature-card">
+        <div class="feature-card fade-in fade-in-delay-5">
             <span class="feature-icon">🔒</span>
             <div class="feature-title">Acceso por PIN</div>
             <div class="feature-desc">Sistema de autenticación que protege la gestión. Solo accede quien tenga el PIN. Cambio de credenciales en cualquier momento.</div>
@@ -715,7 +732,7 @@
 <hr class="divider">
 
 <!-- ══ VIDEOS ══ -->
-<section class="videos-section">
+<section class="videos-section fade-in">
     <div style="max-width:900px; margin:0 auto;">
         <div class="section-label">El sistema en acción</div>
         <h2 style="font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight:900; letter-spacing:-0.5px;">Así funciona por dentro.</h2>
@@ -753,7 +770,7 @@
 <hr class="divider">
 
 <!-- ══ PLANES ══ -->
-<section class="precio-section">
+<section class="precio-section fade-in">
     <div class="section-label" style="text-align:center;">Planes</div>
     <h2 style="text-align:center; font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight:900; letter-spacing:-0.5px;">Elegí tu versión.</h2>
     <p style="text-align:center; color:var(--text-soft); max-width:480px; margin:8px auto 0;">Pago único en los tres casos. Sin abono mensual, sin sorpresas.</p>
@@ -826,7 +843,7 @@
 </section>
 
 <!-- ══ CTA FINAL ══ -->
-<section class="cta-section">
+<section class="cta-section fade-in">
     <div class="section-label" style="color: var(--red);">¿Listo para dar el paso?</div>
     <h2>Tu competencia<br>todavía usa <span>papel.</span></h2>
     <p>La primera inmobiliaria de cada zona que adopta TVD se posiciona como referente tecnológico.<br>Esa ventana no dura para siempre.</p>
@@ -843,6 +860,19 @@
         Juan Fernando Molina &nbsp;·&nbsp; 11 5613 1930 &nbsp;·&nbsp; info@tuvidrieradigital.com.ar
     </div>
 </footer>
+
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+        }
+    });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
 
 </body>
 </html>
