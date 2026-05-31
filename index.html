@@ -429,6 +429,117 @@
             flex-wrap: wrap;
         }
 
+        /* ── VIDEOS ── */
+        .videos-section {
+            background: var(--gray);
+            padding: 64px 24px;
+        }
+        .videos-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            max-width: 900px;
+            margin: 40px auto 0;
+            align-items: center;
+        }
+        .videos-grid.reverse { direction: rtl; }
+        .videos-grid.reverse > * { direction: ltr; }
+        .video-box {
+            background: #000;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }
+        .video-box video { width: 100%; display: block; }
+        .video-vertical {
+            max-width: 220px;
+            margin: 0 auto;
+        }
+        .video-text h3 {
+            font-size: 1.3rem;
+            font-weight: 900;
+            letter-spacing: -0.3px;
+            margin-bottom: 10px;
+        }
+        .video-text p {
+            color: var(--text-soft);
+            font-size: 0.95rem;
+            margin-bottom: 0;
+        }
+
+        /* ── PLANES ── */
+        .planes-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            max-width: 760px;
+            margin: 32px auto 0;
+        }
+        .plan-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 32px;
+            border: 2px solid var(--gray-mid);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+            display: flex;
+            flex-direction: column;
+        }
+        .plan-card.destacado {
+            border-color: var(--red);
+            box-shadow: 0 4px 24px rgba(192,57,43,0.15);
+        }
+        .plan-badge {
+            font-family: 'DM Mono', monospace;
+            font-size: 9px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--text-soft);
+            margin-bottom: 12px;
+        }
+        .plan-card.destacado .plan-badge { color: var(--red); }
+        .plan-nombre {
+            font-size: 1.1rem;
+            font-weight: 900;
+            margin-bottom: 16px;
+        }
+        .plan-precio {
+            font-size: 2rem;
+            font-weight: 900;
+            letter-spacing: -1.5px;
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+        .plan-nota {
+            font-family: 'DM Mono', monospace;
+            font-size: 9px;
+            color: var(--text-soft);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+        .plan-list {
+            list-style: none;
+            flex: 1;
+            margin-bottom: 24px;
+        }
+        .plan-list li {
+            font-size: 0.85rem;
+            padding: 6px 0;
+            border-bottom: 1px solid var(--gray);
+            display: flex;
+            gap: 8px;
+            align-items: flex-start;
+        }
+        .plan-list li::before { content: '✓'; color: var(--red); font-weight: 900; flex-shrink: 0; }
+        .plan-list li.inactivo::before { content: '–'; color: #ccc; }
+        .plan-list li.inactivo { color: #bbb; }
+
+        @media (max-width: 640px) {
+            .planes-grid { grid-template-columns: 1fr; }
+            .videos-grid { grid-template-columns: 1fr; gap: 24px; }
+            .videos-grid.reverse { direction: ltr; }
+        }
+
         /* ── FOOTER ── */
         .footer {
             background: #050505;
@@ -600,24 +711,90 @@
 
 <hr class="divider">
 
-<!-- ══ PRECIO ══ -->
-<section class="precio-section">
-    <div class="section-label" style="text-align:center;">Inversión</div>
-    <h2 style="text-align:center; font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 900; letter-spacing: -0.5px;">Pago único. Sin sorpresas.</h2>
-    <div class="precio-card">
-        <h3>Llave en mano</h3>
-        <div class="precio-monto">$ 1.500.000</div>
-        <div class="precio-nota">ARS · Pago único · Sin abono mensual</div>
-        <ul class="precio-list">
-            <li>Mini PC configurado e instalado</li>
-            <li>Software TVD con todas las funciones</li>
-            <li>Integración con Tokko Broker</li>
-            <li>Panel de carga mobile</li>
-            <li>Central de gestión de propiedades</li>
-            <li>Soporte en la puesta en marcha</li>
-        </ul>
-        <a href="https://wa.me/5491156131930?text=Hola%2C%20quiero%20una%20demo%20de%20TuVidrieraDigital" target="_blank" class="btn-primary" style="display:block; text-align:center;">Solicitar demo gratuita</a>
+<!-- ══ VIDEOS ══ -->
+<section class="videos-section">
+    <div style="max-width:900px; margin:0 auto;">
+        <div class="section-label">El sistema en acción</div>
+        <h2 style="font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight:900; letter-spacing:-0.5px;">Así funciona por dentro.</h2>
+
+        <div class="videos-grid" style="margin-top:40px;">
+            <div class="video-vertical">
+                <div class="video-box">
+                    <video autoplay muted loop playsinline>
+                        <source src="uploader.mp4" type="video/mp4">
+                    </video>
+                </div>
+            </div>
+            <div class="video-text">
+                <div class="section-label">Panel de carga</div>
+                <h3>Publicás desde el celular en 2 minutos.</h3>
+                <p>Fotos, precio, descripción y destino — vidriera y portales al mismo tiempo. Sin PC, sin complicaciones, sin pasos extra.</p>
+            </div>
+        </div>
+
+        <div class="videos-grid reverse" style="margin-top:48px;">
+            <div class="video-text">
+                <div class="section-label">Central de gestión</div>
+                <h3>Control total del inventario.</h3>
+                <p>Activá, pausá o editá cualquier propiedad con efecto inmediato en la pantalla y en los portales. Sin intermediarios, sin asistencia técnica.</p>
+            </div>
+            <div class="video-box">
+                <video autoplay muted loop playsinline>
+                    <source src="Videoindex.mp4" type="video/mp4">
+                </video>
+            </div>
+        </div>
     </div>
+</section>
+
+<hr class="divider">
+
+<!-- ══ PLANES ══ -->
+<section class="precio-section">
+    <div class="section-label" style="text-align:center;">Planes</div>
+    <h2 style="text-align:center; font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight:900; letter-spacing:-0.5px;">Elegí tu versión.</h2>
+    <p style="text-align:center; color:var(--text-soft); max-width:480px; margin:8px auto 0;">Pago único en los dos casos. Sin abono mensual, sin sorpresas.</p>
+
+    <div class="planes-grid">
+        <div class="plan-card">
+            <div class="plan-badge">Plan base</div>
+            <div class="plan-nombre">TVD Vidriera</div>
+            <div class="plan-precio">$ 500.000</div>
+            <div class="plan-nota">ARS · Pago único</div>
+            <ul class="plan-list">
+                <li>Pantalla 4K en tu vidriera</li>
+                <li>Mini PC configurado e instalado</li>
+                <li>Carga desde el celular</li>
+                <li>QR dinámico + WhatsApp directo</li>
+                <li>Central de gestión de propiedades</li>
+                <li>Actualización en tiempo real</li>
+                <li class="inactivo">Publicación en Zonaprop</li>
+                <li class="inactivo">Publicación en Argenprop</li>
+                <li class="inactivo">Publicación en MercadoLibre</li>
+            </ul>
+            <a href="https://wa.me/5491156131930?text=Hola%2C%20quiero%20una%20demo%20de%20TuVidrieraDigital" target="_blank" class="btn-ghost" style="display:block; text-align:center; color:var(--text); border-color:var(--gray-mid); padding:12px;">Consultar</a>
+        </div>
+
+        <div class="plan-card destacado">
+            <div class="plan-badge">Plan completo</div>
+            <div class="plan-nombre">TVD Vidriera + Portales</div>
+            <div class="plan-precio">$ 1.500.000</div>
+            <div class="plan-nota">ARS · Pago único</div>
+            <ul class="plan-list">
+                <li>Pantalla 4K en tu vidriera</li>
+                <li>Mini PC configurado e instalado</li>
+                <li>Carga desde el celular</li>
+                <li>QR dinámico + WhatsApp directo</li>
+                <li>Central de gestión de propiedades</li>
+                <li>Actualización en tiempo real</li>
+                <li>Publicación en Zonaprop</li>
+                <li>Publicación en Argenprop</li>
+                <li>Publicación en MercadoLibre</li>
+            </ul>
+            <a href="https://wa.me/5491156131930?text=Hola%2C%20quiero%20una%20demo%20de%20TuVidrieraDigital" target="_blank" class="btn-primary" style="display:block; text-align:center; padding:12px;">Solicitar demo gratuita</a>
+        </div>
+    </div>
+    <p style="text-align:center; font-size:0.8rem; color:#aaa; margin-top:16px;">* Plan Portales requiere cuenta Tokko Broker activa.</p>
 </section>
 
 <!-- ══ CTA FINAL ══ -->
