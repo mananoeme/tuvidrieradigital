@@ -874,5 +874,42 @@ const observer = new IntersectionObserver((entries) => {
 document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 </script>
 
+
+<script>
+// ── SMOOTH INERTIAL SCROLL ──
+(function() {
+    const speed = 0.08;
+    let currentY = window.scrollY;
+    let targetY = window.scrollY;
+    let running = false;
+
+    function lerp(a, b, t) { return a + (b - a) * t; }
+
+    function tick() {
+        currentY = lerp(currentY, targetY, speed * 10);
+        const diff = Math.abs(targetY - currentY);
+        if (diff < 0.5) {
+            currentY = targetY;
+            running = false;
+            return;
+        }
+        window.scrollTo(0, currentY);
+        requestAnimationFrame(tick);
+    }
+
+    window.addEventListener('wheel', function(e) {
+        e.preventDefault();
+        targetY = Math.max(0, Math.min(
+            document.body.scrollHeight - window.innerHeight,
+            targetY + e.deltaY * 1.2
+        ));
+        if (!running) {
+            running = true;
+            requestAnimationFrame(tick);
+        }
+    }, { passive: false });
+})();
+</script>
+
 </body>
 </html>
