@@ -111,9 +111,10 @@
 
         /* ── TV MOCK ── */
         .tv-wrap {
-            max-width: 680px;
+            max-width: 900px;
             margin: 50px auto 0;
             padding: 0 16px;
+            overflow: hidden;
         }
         .tv-frame {
             background: #1e1e1e;
@@ -530,15 +531,62 @@
         .fade-in-delay-disabled-4 { transition-delay: 0.4s; }
         .fade-in-delay-disabled-5 { transition-delay: 0.5s; }
 
+        /* ── BOTÓN WA FLOTANTE ── */
+        .wa-float {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #25D366;
+            color: #fff;
+            text-decoration: none;
+            padding: 13px 20px 13px 16px;
+            border-radius: 50px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            box-shadow: 0 4px 20px rgba(37,211,102,0.45);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .wa-float:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 28px rgba(37,211,102,0.55);
+        }
+        .wa-float svg { flex-shrink: 0; }
+
         /* ── MOBILE ── */
         @media (max-width: 640px) {
+            /* evitar scroll horizontal */
+            body { overflow-x: hidden; }
+
             .prob-sol { grid-template-columns: 1fr; }
             .features-grid { grid-template-columns: 1fr 1fr; }
-            .stat { padding: 8px 18px; }
+
+            /* stats: 2x2 en vez de fila */
+            .stats-bar { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+            .stat { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.15); padding: 12px 8px; }
+            .stat:nth-child(odd) { border-right: 1px solid rgba(255,255,255,0.15); }
+            .stat:nth-child(3), .stat:nth-child(4) { border-bottom: none; }
+
+            /* patas del TV: usar porcentaje en vez de px fijo */
+            .tv-legs { gap: 52%; }
+
+            /* planes: uno debajo del otro */
+            .planes-grid { grid-template-columns: 1fr !important; }
+
+            /* flow portales: ocultar flechas */
             .flow { gap: 6px; }
             .flow-arrow { display: none; }
+
+            /* videos */
             .videos-grid { grid-template-columns: 1fr; gap: 24px; }
             .videos-grid.reverse { direction: ltr; }
+
+            /* WA flotante más chico */
+            .wa-float { padding: 12px 16px; font-size: 13px; bottom: 16px; right: 16px; }
         }
         @media (max-width: 400px) {
             .features-grid { grid-template-columns: 1fr; }
@@ -558,20 +606,9 @@
         <a href="#como-funciona" class="btn-ghost">Ver cómo funciona</a>
     </div>
     <div class="tv-wrap">
-        <div class="tv-frame">
-            <div class="tv-screen">
-                <video autoplay muted loop playsinline>
-                    <source src="vshowcaseH.mp4" type="video/mp4">
-                </video>
-            </div>
-            <div class="tv-dot"></div>
-        </div>
-        <div class="tv-legs">
-            <div class="tv-leg-top"></div><div class="tv-leg-top"></div>
-        </div>
-        <div class="tv-legs">
-            <div class="tv-leg-bot"></div><div class="tv-leg-bot"></div>
-        </div>
+        <video autoplay muted loop playsinline style="width:100%; display:block; border-radius:10px; box-shadow:0 24px 64px rgba(0,0,0,0.6);">
+            <source src="vshowcaseH.mp4" type="video/mp4">
+        </video>
     </div>
 </section>
 
@@ -740,7 +777,7 @@
     <h2 style="text-align:center; font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight:900; letter-spacing:-0.5px;">Elegí tu versión.</h2>
     <p style="text-align:center; color:var(--text-soft); max-width:480px; margin:8px auto 0;">Pago único. Sin abono mensual, sin sorpresas.</p>
 
-    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:16px; max-width:960px; margin:32px auto 0;">
+    <div class="planes-grid" style="display:grid; grid-template-columns:repeat(3,1fr); gap:16px; max-width:960px; margin:32px auto 0;">
 
         <!-- PLAN 1: SOLO PORTALES — EN DESARROLLO -->
         <div class="plan-card opaco">
@@ -847,5 +884,14 @@ function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
 requestAnimationFrame(raf);
 </script>
 
-</body>
+<!-- ══ WA FLOTANTE ══ -->
+<a class="wa-float" href="https://wa.me/5491156131930?text=Hola%2C%20quiero%20una%20demo%20de%20TuVidrieraDigital" onclick="gtag('event','whatsapp_float_click')" target="_blank" rel="noopener noreferrer">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+        <path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.978-1.413A9.953 9.953 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18a7.952 7.952 0 01-4.104-1.14l-.29-.173-3.007.854.87-2.931-.19-.302A7.952 7.952 0 014 12c0-4.418 3.582-8 8-8s8 3.582 8 8-3.582 8-8 8z"/>
+    </svg>
+    Demo gratis
+</a>
+
+
 </html>
