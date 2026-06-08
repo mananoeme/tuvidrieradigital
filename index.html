@@ -27,7 +27,7 @@
             --text-soft: #666;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        html { scroll-behavior: smooth; }
+        html { scroll-behavior: smooth; overflow-x: hidden; }
         body {
             font-family: 'DM Sans', sans-serif;
             background: var(--white);
@@ -39,7 +39,7 @@
         .hero {
             background: var(--black);
             color: var(--white);
-            padding: 60px 24px 70px;
+            padding: 60px 24px 0;
             text-align: center;
             position: relative;
             overflow: hidden;
@@ -112,9 +112,9 @@
 
         /* ── TV MOCK ── */
         .tv-wrap {
-            max-width: 900px;
-            margin: 50px auto 0;
-            padding: 0 16px;
+            width: 100%;
+            margin: 40px 0 0;
+            padding: 0;
             overflow: hidden;
         }
         .tv-frame {
@@ -607,7 +607,7 @@
         <a href="#como-funciona" class="btn-ghost">Ver cómo funciona</a>
     </div>
     <div class="tv-wrap">
-        <video autoplay muted loop playsinline style="width:100%; display:block; border-radius:10px; box-shadow:0 24px 64px rgba(0,0,0,0.6);">
+        <video autoplay muted loop playsinline style="width:100%; display:block; border-radius:0;">
             <source src="vshowcaseH.mp4" type="video/mp4">
         </video>
     </div>
