@@ -39,7 +39,7 @@
         .hero {
             background: var(--black);
             color: var(--white);
-            padding: 60px 24px 0;
+            padding: 60px 24px 48px;
             text-align: center;
             position: relative;
             overflow: hidden;
@@ -112,8 +112,8 @@
 
         /* ── TV MOCK ── */
         .tv-wrap {
-            width: 100%;
-            margin: 40px 0 0;
+            width: 80%;
+            margin: 40px auto 0;
             padding: 0;
             overflow: hidden;
         }
@@ -562,6 +562,7 @@
         @media (max-width: 640px) {
             /* evitar scroll horizontal */
             body { overflow-x: hidden; }
+            .tv-wrap { width: 100%; }
 
             .prob-sol { grid-template-columns: 1fr; }
             .features-grid { grid-template-columns: 1fr 1fr; }
