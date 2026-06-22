@@ -277,7 +277,7 @@ const AUTH_EMAIL = 'villar@tuvidrieradigital.com.ar';
 const AUTH_PASS  = 'vP@2026#Bfd';
 
 // ═══════════ PIN ═══════════
-const SESSION_KEY='villar_auth_v1';
+const SESSION_KEY='villar_editor_v1';
 let pinBuffer='', pinLocked=false;
 
 function pinKey(d){if(pinLocked||pinBuffer.length>=6)return;pinBuffer+=d;renderCircles();if(pinBuffer.length===6)setTimeout(pinEnter,120);}
