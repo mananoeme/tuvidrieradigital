@@ -14,7 +14,7 @@
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
-  --bg:#1a1a2e; --card:#FFFFFF; --accent:#7B1C2E;
+  --bg:#1a1a2e; --card:#FFFFFF; --accent:#C0392B;
   --text:#111111; --text-muted:#888888; --spec-bg:#F3F1EE;
   --radius:16px; --gap:7px;
   --sans:'DM Sans',-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;
@@ -40,7 +40,7 @@ body,html {
   position:fixed; inset:0; z-index:600;
   opacity:0; pointer-events:none;
   transition:opacity 800ms ease-in-out;
-  background:#FFFFFF;
+  background:var(--bg);
   display:flex; align-items:center; justify-content:center;
   overflow:hidden;
 }
@@ -49,6 +49,7 @@ body,html {
   width:1920px; height:1080px; background:#FFFFFF;
   display:flex; position:relative; overflow:hidden;
   flex-shrink:0; transform-origin:center center;
+  border-radius:var(--radius);
 }
 
 /* ═══ TANDA INSTAGRAM ═══ */
@@ -237,7 +238,7 @@ if (new URLSearchParams(location.search).has('secondary')) {
   <div id="tas-placa" class="tanda-placa">
     <div id="tas-contenido">
       <img class="tas-logo" src="https://static.tokkobroker.com/tfw_images/78_Villar%20Propiedades/Villar_Logo_PNG.png" alt="Villar Propiedades">
-      <div class="tas-titulo">¿Pensás en vender o alquilar?</div>
+      <div class="tas-titulo">¿Pensás en <br> vender o alquilar?</div>
       <div class="tas-subtitulo">En Villar Propiedades te acompañamos en todo el proceso</div>
       <div class="tas-bullets">
         <div class="tas-bullet"><div class="tas-check"><svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>Tasación profesional</div>
@@ -835,7 +836,7 @@ setInterval(async ()=>{
 // ║   Cada vez que subas cambios, incrementá el número              ║
 // ║   Ejemplos: '1.0.2' → '1.0.3' → '1.0.4'                       ║
 // ╚══════════════════════════════════════════════════════════════════╝
-const VERSION = '1.0.2';
+const VERSION = '1.0.3';
 
 async function boot() {
   ajustarScale();
