@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<title>Villar Propiedades – Vidriera</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;900&family=DM+Mono:wght@500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg:#1a1a2e; --card:#FFFFFF; --accent:#7B1C2E;
+  --text:#111111; --text-muted:#888888; --spec-bg:#F3F1EE;
+  --radius:16px; --gap:7px;
+  --sans:'DM Sans',-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;
+  --mono:'DM Mono','Courier New',monospace;
+}
+body,html {
+  margin:0; padding:0; width:100vw; height:100vh; overflow:hidden;
+  background:#1a1a2e;
+  font-family:var(--sans); display:flex; justify-content:center; align-items:center;
+}
+#placeholder { position:fixed; inset:0; background:var(--bg); display:flex; align-items:center; justify-content:center; z-index:1000; transition:opacity 0.8s ease; }
+#placeholder.oculto { opacity:0; pointer-events:none; }
+.ph-logo { width:280px; margin-bottom:3vh; }
+#ph-msg { font-family:var(--mono); font-size:1.1vw; color:rgba(255,255,255,0.25); text-align:center; margin-top:2.5vh; letter-spacing:0.2em; text-transform:uppercase; }
+#net-dot { position:fixed; bottom:14px; right:14px; width:8px; height:8px; border-radius:50%; z-index:9999; background:#555; transition:background 0.5s; }
+#net-dot.online  { background:#27AE60; }
+#net-dot.offline { background:#E74C3C; }
+#net-dot.syncing { background:#F39C12; animation:blink 1.2s ease-in-out infinite; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.25} }
+
+/* ═══ OVERLAY BASE ═══ */
+.tanda-overlay {
+  position:fixed; inset:0; z-index:600;
+  opacity:0; pointer-events:none;
+  transition:opacity 800ms ease-in-out;
+  background:#FFFFFF;
+  display:flex; align-items:center; justify-content:center;
+  overflow:hidden;
+}
+.tanda-overlay.visible { opacity:1; pointer-events:auto; }
+.tanda-placa {
+  width:1920px; height:1080px; background:#FFFFFF;
+  display:flex; position:relative; overflow:hidden;
+  flex-shrink:0; transform-origin:center center;
+}
+
+/* ═══ TANDA INSTAGRAM ═══ */
+#ig-contenido {
+  width:1150px; flex-shrink:0;
+  display:flex; flex-direction:column; justify-content:center;
+  padding:50px 70px 50px 90px; box-sizing:border-box;
+}
+.ig-logo { width:860px; margin-bottom:32px; margin-left:-10px; }
+.ig-titulo { font-size:58px; font-weight:900; color:#111; text-transform:uppercase; letter-spacing:-0.03em; line-height:1.0; margin-bottom:8px; }
+.ig-subtitulo { font-size:28px; font-weight:700; color:#444; margin-bottom:24px; line-height:1.3; }
+.ig-bullets { display:flex; flex-direction:column; gap:10px; margin-bottom:32px; }
+.ig-bullet { display:flex; align-items:center; gap:18px; font-size:52px; font-weight:900; color:#111; letter-spacing:-0.03em; line-height:1.0; }
+.ig-check svg { stroke:#111; }
+.ig-bottom { display:flex; align-items:stretch; gap:32px; }
+.ig-qr-inner { display:flex; align-items:stretch; gap:32px; }
+.ig-qr-col { display:flex; flex-direction:column; align-items:center; gap:8px; }
+.ig-qr-box { background:#fff; border:3px solid #E8E5E2; border-radius:14px; padding:12px; box-shadow:0 4px 20px rgba(0,0,0,0.08); }
+.ig-qr-label { font-family:'DM Mono',monospace; font-size:13px; font-weight:500; color:#555; letter-spacing:0.04em; text-align:center; line-height:1.4; }
+.ig-info { display:flex; flex-direction:column; justify-content:space-between; padding:4px 0; align-self:flex-start; height:184px; }
+.ig-info-row { display:flex; align-items:center; gap:14px; }
+.ig-info-text { font-size:30px; font-weight:900; color:#111; text-transform:uppercase; letter-spacing:-0.01em; }
+.ig-arroba { font-size:34px; font-weight:900; color:#111; letter-spacing:-0.02em; }
+.ig-wa-row { display:flex; align-items:center; gap:12px; }
+.ig-wa-text { font-size:30px; font-weight:700; color:#111; }
+#ig-foto-panel { flex:1; display:flex; align-items:center; justify-content:center; padding:80px 80px 80px 30px; box-sizing:border-box; }
+#ig-foto-wrap { width:100%; height:100%; position:relative; border-radius:32px; overflow:hidden; box-shadow:0 12px 48px rgba(0,0,0,0.18); background:linear-gradient(135deg,#d0cdc8 0%,#b8b4ae 100%); }
+#ig-foto-wrap img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0; transition:opacity 0.8s ease-in-out; }
+#ig-foto-wrap img.ig-activa { opacity:1; }
+
+/* ═══ TANDA TASACIONES ═══ */
+#tas-contenido {
+  width:1150px; flex-shrink:0;
+  display:flex; flex-direction:column; justify-content:center;
+  padding:40px 70px 40px 90px; box-sizing:border-box;
+}
+.tas-logo { width:500px; height:auto; margin-bottom:24px; margin-left:-10px; }
+.tas-titulo { font-size:72px; font-weight:900; color:#111; text-transform:uppercase; letter-spacing:-0.03em; line-height:1.05; margin-bottom:8px; }
+.tas-subtitulo { font-size:22px; font-weight:700; color:#444; margin-bottom:20px; line-height:1.3; }
+.tas-bullets { display:flex; flex-direction:column; gap:8px; margin-bottom:28px; }
+.tas-bullet { display:flex; align-items:center; gap:16px; font-size:34px; font-weight:900; color:#111; letter-spacing:-0.03em; line-height:1.0; }
+.tas-check svg { stroke:#111; }
+.tas-bottom { display:flex; align-items:stretch; gap:32px; }
+.tas-qr-col { display:flex; flex-direction:column; align-items:center; gap:8px; }
+.tas-qr-box { background:#fff; border:3px solid #E8E5E2; border-radius:14px; padding:12px; box-shadow:0 4px 20px rgba(0,0,0,0.08); }
+.tas-qr-label { font-family:'DM Mono',monospace; font-size:13px; font-weight:500; color:#555; letter-spacing:0.04em; text-align:center; line-height:1.4; }
+.tas-wa-bloque { display:flex; flex-direction:column; justify-content:space-between; padding:4px 0; align-self:flex-start; height:184px; }
+.tas-gratis-tag { display:inline-block; background:#111; color:#fff; font-size:15px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; padding:6px 18px; border-radius:6px; }
+.tas-wa-grande { font-size:34px; font-weight:900; color:#111; letter-spacing:-0.02em; line-height:1.15; }
+.tas-wa-row { display:flex; align-items:center; gap:12px; }
+.tas-wa-text { font-size:30px; font-weight:700; color:#111; }
+#tas-foto-panel { flex:1; display:flex; align-items:center; justify-content:center; padding:60px 60px 60px 20px; box-sizing:border-box; }
+#tas-foto-wrap { width:100%; height:100%; position:relative; border-radius:32px; overflow:hidden; box-shadow:0 12px 48px rgba(0,0,0,0.18); background:linear-gradient(135deg,#d0cdc8 0%,#b8b4ae 100%); }
+#tas-foto-wrap img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0; transition:opacity 0.8s ease-in-out; }
+#tas-foto-wrap img.tas-activa { opacity:1; }
+
+/* ═══ TANDA WEB ═══ */
+#web-contenido {
+  width:1150px; flex-shrink:0;
+  display:flex; flex-direction:column; justify-content:center;
+  padding:50px 70px 50px 90px; box-sizing:border-box;
+}
+.web-logo { width:860px; margin-bottom:32px; margin-left:-10px; }
+.web-titulo { font-size:58px; font-weight:900; color:#111; text-transform:uppercase; letter-spacing:-0.03em; line-height:1.0; margin-bottom:8px; }
+.web-subtitulo { font-size:28px; font-weight:700; color:#444; margin-bottom:24px; line-height:1.3; }
+.web-bullets { display:flex; flex-direction:column; gap:10px; margin-bottom:32px; }
+.web-bullet { display:flex; align-items:center; gap:18px; font-size:52px; font-weight:900; color:#111; letter-spacing:-0.03em; line-height:1.0; }
+.web-check svg { stroke:#111; }
+.web-bottom { display:flex; align-items:stretch; gap:32px; }
+.web-qr-inner { display:flex; align-items:stretch; gap:32px; }
+.web-qr-col { display:flex; flex-direction:column; align-items:center; gap:8px; }
+.web-qr-box { background:#fff; border:3px solid #E8E5E2; border-radius:14px; padding:12px; box-shadow:0 4px 20px rgba(0,0,0,0.08); }
+.web-qr-label { font-family:'DM Mono',monospace; font-size:13px; font-weight:500; color:#555; letter-spacing:0.04em; text-align:center; line-height:1.4; }
+.web-info { display:flex; flex-direction:column; justify-content:space-between; padding:4px 0; align-self:flex-start; height:184px; }
+.web-info-row { display:flex; align-items:center; gap:14px; }
+.web-info-text { font-size:30px; font-weight:900; color:#111; text-transform:uppercase; letter-spacing:-0.01em; }
+.web-url { font-size:30px; font-weight:900; color:#111; letter-spacing:-0.02em; }
+.web-wa-row { display:flex; align-items:center; gap:12px; }
+.web-wa-text { font-size:30px; font-weight:700; color:#111; }
+#web-foto-panel { flex:1; display:flex; align-items:center; justify-content:center; padding:80px 80px 80px 30px; box-sizing:border-box; }
+#web-foto-wrap { width:100%; height:100%; position:relative; border-radius:32px; overflow:hidden; box-shadow:0 12px 48px rgba(0,0,0,0.18); background:linear-gradient(135deg,#d0cdc8 0%,#b8b4ae 100%); }
+#web-foto-wrap img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0; transition:opacity 0.8s ease-in-out; }
+#web-foto-wrap img.web-activa { opacity:1; }
+
+/* ═══ GRID ═══ */
+#tv-viewport {
+  position:absolute; width:1920px; height:1080px;
+  display:grid; grid-template-columns:repeat(3,1fr); grid-template-rows:repeat(3,1fr);
+  gap:10px; padding:16px; background:var(--bg); transform-origin:center center;
+}
+.celda { position:relative; border-radius:var(--radius); overflow:hidden; contain:layout style paint; box-shadow:0 8px 32px rgba(0,0,0,0.5); }
+.ficha { position:absolute; inset:0; background:var(--card); border-radius:var(--radius); display:flex; flex-direction:column; box-shadow:0 12px 50px rgba(0,0,0,0.9); padding:var(--gap); gap:var(--gap); }
+.fila-top { flex:1; min-height:0; display:flex; flex-direction:row; align-items:flex-start; gap:var(--gap); overflow:hidden; }
+.foto-wrap { flex-shrink:0; aspect-ratio:16/9; height:100%; position:relative; background:linear-gradient(135deg,#d0cdc8 0%,#b8b4ae 100%); overflow:hidden; border-radius:calc(var(--radius) - var(--gap)); }
+.foto-wrap::before { content:''; position:absolute; inset:0; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23a0a0a0' stroke-width='1.5'%3E%3Crect x='3' y='3' width='18' height='18' rx='2'/%3E%3Ccircle cx='8.5' cy='8.5' r='1.5'/%3E%3Cpath d='M21 15l-5-5L5 21'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:center; background-size:15%; z-index:0; }
+.foto-slide { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0; z-index:1; transition:opacity 0.8s ease-in-out; will-change:opacity; }
+.foto-slide.activa { opacity:1; z-index:2; }
+.foto-etiquetas { position:absolute; bottom:9px; right:9px; z-index:10; display:flex; flex-direction:column; align-items:flex-end; gap:4px; max-width:55%; }
+.foto-etiqueta { background:rgba(255,255,255,0.95); color:var(--accent); font-size:11px; font-weight:800; padding:3px 9px; border-radius:4px; text-transform:uppercase; letter-spacing:0.06em; }
+.foto-watermark { position:absolute; top:9px; left:9px; z-index:9; width:18%; opacity:0.75; pointer-events:none; }
+.foto-watermark img { width:100%; height:auto; display:block; }
+.foto-qr { position:absolute; bottom:9px; left:9px; z-index:10; width:20%; background:#fff; border-radius:6px; padding:4px; box-shadow:0 2px 8px rgba(0,0,0,0.35); }
+.foto-qr img { width:100%; height:auto; display:block; border-radius:3px; }
+.datos { flex:1; min-width:0; display:flex; flex-direction:column; overflow:hidden; padding:2px 2px 0; justify-content:flex-start; align-self:flex-start; }
+.datos-arriba { display:flex; flex-direction:column; }
+.tipo { font-family:var(--mono); font-size:10px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:var(--text-muted); margin-bottom:3px; }
+.badge-op { display:inline-block; background:var(--accent); color:#fff; font-size:11px; font-weight:900; letter-spacing:0.1em; text-transform:uppercase; padding:3px 11px; border-radius:4px; align-self:flex-start; margin-bottom:5px; }
+.barrio { font-size:16px; font-weight:900; color:var(--text); line-height:1.0; text-transform:uppercase; letter-spacing:-0.02em; word-break:break-word; }
+.direccion { font-size:13px; font-weight:900; color:var(--text); margin-top:3px; margin-bottom:2px; line-height:1.15; overflow:hidden; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; }
+.precio-area { display:flex; flex-direction:column; gap:1px; margin-top:2px; margin-bottom:6px; }
+.precio-row { display:flex; align-items:baseline; gap:3px; }
+.precio-moneda { font-family:var(--mono); font-size:12px; font-weight:500; color:var(--accent); flex-shrink:0; }
+.precio-monto { font-size:clamp(14px,1.8vw,24px); font-weight:900; color:var(--accent); letter-spacing:-0.5px; line-height:1; word-break:break-all; }
+.expensas { font-family:var(--mono); font-size:10px; color:var(--text-muted); }
+.descripcion { font-size:11px; font-weight:700; color:#444; line-height:1.45; overflow:hidden; display:-webkit-box; -webkit-line-clamp:6; -webkit-box-orient:vertical; border-top:1.5px solid #EBEBEB; padding-top:5px; }
+.datos-spacer { flex:1; min-height:4px; }
+.specs-bar { flex-shrink:0; background:var(--spec-bg); border-radius:calc(var(--radius) - var(--gap)); display:flex; align-items:center; height:60px; padding:0 8px; }
+.spec { display:flex; align-items:center; gap:7px; flex:1; padding:0 8px; position:relative; }
+.spec+.spec::before { content:''; position:absolute; left:0; top:15%; bottom:15%; width:1.5px; background:#DEDAD5; }
+.spec-icon { width:22px; height:22px; color:var(--text-muted); flex-shrink:0; }
+.spec-texts { display:flex; flex-direction:column; line-height:1.1; }
+.spec-val { font-size:18px; font-weight:900; color:var(--text); white-space:nowrap; }
+.spec-lbl { font-size:8.5px; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.05em; }
+</style>
+</head>
+<body>
+
+<div id="placeholder">
+  <div style="display:flex;flex-direction:column;align-items:center;">
+    <img class="ph-logo" src="https://static.tokkobroker.com/tfw_images/78_Villar%20Propiedades/Villar_Logo_PNG.png" alt="Villar Propiedades">
+    <div id="ph-msg">Conectando…</div>
+  </div>
+</div>
+<script>
+// Si es el iframe secundario (swap en background) → ocultar placeholder inmediatamente
+if (new URLSearchParams(location.search).has('secondary')) {
+  document.getElementById('placeholder').style.display = 'none';
+}
+</script>
+<div id="net-dot" class="syncing"></div>
+
+<!-- ╔══════════════════════════════════════════════════════════════╗ -->
+<!-- ║                    TANDA INSTAGRAM                          ║ -->
+<!-- ║   Editar textos, handle de Instagram y número de WA        ║ -->
+<!-- ╚══════════════════════════════════════════════════════════════╝ -->
+<div id="ig-overlay" class="tanda-overlay">
+  <div id="ig-placa" class="tanda-placa">
+    <div id="ig-contenido">
+      <img class="ig-logo" src="https://static.tokkobroker.com/tfw_images/78_Villar%20Propiedades/Villar_Logo_PNG.png" alt="Villar Propiedades">
+      <div class="ig-titulo">¿Buscás un nuevo hogar? </div>
+      <div class="ig-subtitulo">Nuevas propiedades todas las semanas</div>
+      <div class="ig-bullets">
+        <div class="ig-bullet"><div class="ig-check"><svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>Comprá</div>
+        <div class="ig-bullet"><div class="ig-check"><svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>Vendé</div>
+        <div class="ig-bullet"><div class="ig-check"><svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>Alquilá</div>
+      </div>
+      <div class="ig-bottom">
+        <div class="ig-qr-inner">
+          <div class="ig-qr-col">
+            <div class="ig-qr-box"><div id="ig-qr"></div></div>
+            <div class="ig-qr-label">Escaneá el QR para seguirnos</div>
+          </div>
+          <div class="ig-info">
+            <div class="ig-info-row">
+              <svg viewBox="0 0 24 24" width="38" height="38"><defs><linearGradient id="igGrad" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#FFDC80"/><stop offset="25%" stop-color="#F77737"/><stop offset="50%" stop-color="#E1306C"/><stop offset="75%" stop-color="#C13584"/><stop offset="100%" stop-color="#833AB4"/></linearGradient></defs><rect x="2" y="2" width="20" height="20" rx="5" fill="url(#igGrad)"/><circle cx="12" cy="12" r="4.2" fill="none" stroke="#fff" stroke-width="1.6"/><circle cx="17.2" cy="6.8" r="1.1" fill="#fff"/></svg>
+              <span class="ig-info-text">Seguinos en Instagram</span>
+            </div>
+            <div class="ig-arroba">@villar_propiedades</div>
+            <div class="ig-wa-row">
+              <svg viewBox="0 0 24 24" width="30" height="30" fill="none"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" fill="#25D366"/><path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.659 1.438 5.168L2 22l4.985-1.404A9.96 9.96 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z" stroke="#25D366" stroke-width="1.5" fill="none"/></svg>
+              <span class="ig-wa-text">11 6516-4932</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="ig-foto-panel"><div id="ig-foto-wrap"></div></div>
+  </div>
+</div>
+
+<!-- ╔══════════════════════════════════════════════════════════════╗ -->
+<!-- ║                    TANDA TASACIONES                         ║ -->
+<!-- ║   Editar textos, bullets y número de WA                    ║ -->
+<!-- ╚══════════════════════════════════════════════════════════════╝ -->
+<div id="tas-overlay" class="tanda-overlay">
+  <div id="tas-placa" class="tanda-placa">
+    <div id="tas-contenido">
+      <img class="tas-logo" src="https://static.tokkobroker.com/tfw_images/78_Villar%20Propiedades/Villar_Logo_PNG.png" alt="Villar Propiedades">
+      <div class="tas-titulo">¿Pensás en vender o alquilar?</div>
+      <div class="tas-subtitulo">En Villar Propiedades te acompañamos en todo el proceso</div>
+      <div class="tas-bullets">
+        <div class="tas-bullet"><div class="tas-check"><svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>Tasación profesional</div>
+        <div class="tas-bullet"><div class="tas-check"><svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>Publicación estratégica</div>
+        <div class="tas-bullet"><div class="tas-check"><svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>Fotos y videos profesionales</div>
+        <div class="tas-bullet"><div class="tas-check"><svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>Seguimiento personalizado</div>
+      </div>
+      <div class="tas-bottom">
+        <div class="tas-qr-col">
+          <div class="tas-qr-box"><div id="tas-qr"></div></div>
+          <div class="tas-qr-label">Escaneá para solicitar tu tasación</div>
+        </div>
+        <div class="tas-wa-bloque">
+          <div class="tas-gratis-tag">Gratis · Sin compromiso</div>
+          <div class="tas-wa-grande">Consultanos<br>por WhatsApp</div>
+          <div class="tas-wa-row">
+            <svg viewBox="0 0 24 24" width="30" height="30" fill="none"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" fill="#25D366"/><path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.659 1.438 5.168L2 22l4.985-1.404A9.96 9.96 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z" stroke="#25D366" stroke-width="1.5" fill="none"/></svg>
+            <span class="tas-wa-text">11 6516-4932</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="tas-foto-panel"><div id="tas-foto-wrap"></div></div>
+  </div>
+</div>
+
+<!-- ╔══════════════════════════════════════════════════════════════╗ -->
+<!-- ║                      TANDA WEB                              ║ -->
+<!-- ║   Editar textos y URL del sitio web del cliente             ║ -->
+<!-- ╚══════════════════════════════════════════════════════════════╝ -->
+<div id="web-overlay" class="tanda-overlay">
+  <div id="web-placa" class="tanda-placa">
+    <div id="web-contenido">
+      <img class="web-logo" src="https://static.tokkobroker.com/tfw_images/78_Villar%20Propiedades/Villar_Logo_PNG.png" alt="Villar Propiedades">
+      <div class="web-titulo">¿Buscás un nuevo hogar?</div>
+      <div class="web-subtitulo">Nuevas propiedades todas las semanas</div>
+      <div class="web-bullets">
+        <div class="web-bullet"><div class="web-check"><svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>Comprá</div>
+        <div class="web-bullet"><div class="web-check"><svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>Vendé</div>
+        <div class="web-bullet"><div class="web-check"><svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>Alquilá</div>
+      </div>
+      <div class="web-bottom">
+        <div class="web-qr-inner">
+          <div class="web-qr-col">
+            <div class="web-qr-box"><div id="web-qr"></div></div>
+            <div class="web-qr-label">Escaneá el QR para ver más propiedades</div>
+          </div>
+          <div class="web-info">
+            <div class="web-info-row">
+              <svg viewBox="0 0 24 24" width="38" height="38" fill="none" stroke="#111" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="2" y1="12" x2="22" y2="12"/>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+              </svg>
+              <span class="web-info-text">Más propiedades en</span>
+            </div>
+            <div class="web-url">www.inmobiliariavillar.com.ar</div>
+            <div class="web-wa-row">
+              <svg viewBox="0 0 24 24" width="30" height="30" fill="none"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" fill="#25D366"/><path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.659 1.438 5.168L2 22l4.985-1.404A9.96 9.96 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z" stroke="#25D366" stroke-width="1.5" fill="none"/></svg>
+              <span class="web-wa-text">11 6516-4932</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="web-foto-panel"><div id="web-foto-wrap"></div></div>
+  </div>
+</div>
+
+<div id="tv-viewport"></div>
+
+<script type="module">
+'use strict';
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js';
+import {
+  initializeFirestore, persistentLocalCache, persistentSingleTabManager, memoryLocalCache,
+  collection, query, onSnapshot,
+} from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
+
+// ╔══════════════════════════════════════════════════════════════════╗
+// ║              CONFIGURACIÓN — EDITAR SEGÚN EL CLIENTE            ║
+// ╚══════════════════════════════════════════════════════════════════╝
+
+const WA_NUMBER          = '5491165164932';  // ← NÚMERO DE WHATSAPP DEL CLIENTE
+const CELDAS             = 9;
+const CASCADE_SLOTS      = [0,3,6,1,4,7,2,5,8];
+const CASCADE_STEP_MS    = 150;
+const PAUSA_MS           = 7_000;
+const FOTOS_POR_VUELTA   = 5;
+const VUELTAS_POR_TANDA  = 2;
+const FOTOS_ANTES_TANDA  = FOTOS_POR_VUELTA * VUELTAS_POR_TANDA;
+const TANDA_PAUSA_ANTES  = 10_000;
+const TANDA_IG_DURACION  = 30_000;
+const TANDA_TAS_DURACION = 30_000;
+const TANDA_WEB_DURACION = 30_000;
+
+let idb        = null;
+let gridBuilt  = false;
+let enPausa    = false;
+let cascadeTimer = null;
+let fotoCiclos = new Array(CELDAS).fill(0);
+let slots      = [];
+
+// ── Pools separados ──────────────────────────────────────────────
+// poolVentas: operacion === 'Venta'
+// poolAlquiler: operacion === 'Alquiler' | 'Temporal'
+let poolVentas   = [];
+let poolAlquiler = [];
+let offsetVentas   = 0;   // puntero que avanza de a CELDAS
+let offsetAlquiler = 0;
+
+// Ciclo: 0=Ventas+IG, 1=Alquiler+Tas, 2=Ventas+Web, 3=Alquiler+IG, ...
+// Secuencia de tandas: IG, Tas, Web, IG, Tas, Web ...
+// turnoSecuencia alterna entre 'ventas' y 'alquiler'
+// tandaTurno rota entre 0(IG), 1(Tas), 2(Web)
+let turnoSecuencia = 'ventas';   // empieza con ventas
+let tandaTurno     = 0;          // 0=IG, 1=Tas, 2=Web
+
+let fsRetryTimer = null;
+let unsubProps   = null;
+
+const ST_PROPS='props_v1', ST_IMGS='imgs_v2', ST_QRS='qrs_v1';
+function abrirDB(){return new Promise((res,rej)=>{const r=indexedDB.open('villar_showcase',3);r.onupgradeneeded=e=>{const db=e.target.result;[ST_PROPS,ST_IMGS,ST_QRS].forEach(s=>{if(!db.objectStoreNames.contains(s))db.createObjectStore(s);});};r.onsuccess=e=>res(e.target.result);r.onerror=()=>rej(r.error);});}
+const dbGet        = (s,k)     => new Promise((res,rej)=>{ const r=idb.transaction(s).objectStore(s).get(k); r.onsuccess=()=>res(r.result); r.onerror=()=>rej(r.error); });
+const dbPut        = (s,v,k)   => new Promise((res,rej)=>{ const st=idb.transaction(s,'readwrite').objectStore(s); const r=k!==undefined?st.put(v,k):st.put(v); r.onsuccess=()=>res(); r.onerror=()=>rej(r.error); });
+const dbGetAll     = (s)       => new Promise((res,rej)=>{ const r=idb.transaction(s).objectStore(s).getAll(); r.onsuccess=()=>res(r.result||[]); r.onerror=()=>rej(r.error); });
+const dbGetAllKeys = (s)       => new Promise((res,rej)=>{ const r=idb.transaction(s).objectStore(s).getAllKeys(); r.onsuccess=()=>res(r.result||[]); r.onerror=()=>rej(r.error); });
+const dbPutAll     = (s,lista) => new Promise((res,rej)=>{ const t=idb.transaction(s,'readwrite'),st=t.objectStore(s); lista.forEach(v=>st.put(v)); t.oncomplete=res; t.onerror=()=>rej(t.error); });
+
+const blobMap  = new Map();
+const inFlight = new Map();
+
+async function obtenerFoto(url) {
+  if (!url||typeof url!=='string') return '';
+  if (blobMap.has(url))  return blobMap.get(url);
+  if (inFlight.has(url)) return inFlight.get(url);
+  const p = (async()=>{
+    if (idb) { try { const b=await dbGet(ST_IMGS,url); if(b instanceof Blob){const u=URL.createObjectURL(b);blobMap.set(url,u);return u;} } catch{} }
+    if (navigator.onLine) { try { const r=await fetch(url,{mode:'cors'}); if(r.ok) return await comprimirYGuardar(await r.blob(),url); } catch{} }
+    return '';
+  })();
+  inFlight.set(url,p);
+  p.finally(()=>inFlight.delete(url));
+  return p;
+}
+
+async function comprimirYGuardar(blob,url) {
+  let fb=blob;
+  try {
+    const bmp=await createImageBitmap(blob);
+    const ratio=Math.min(1,900/bmp.width);
+    const w=Math.round(bmp.width*ratio),h=Math.round(bmp.height*ratio);
+    const cv=new OffscreenCanvas(w,h);
+    cv.getContext('2d').drawImage(bmp,0,0,w,h);
+    bmp.close();
+    fb=await cv.convertToBlob({type:'image/webp',quality:0.82});
+  } catch{}
+  if(idb){try{await dbPut(ST_IMGS,fb,url);}catch{}}
+  const u=URL.createObjectURL(fb);
+  blobMap.set(url,u);
+  return u;
+}
+
+async function precargar(lista) {
+  const urls=lista.flatMap(p=>Array.isArray(p.fotos)?p.fotos:[]);
+  // Primera pasada: intentar todas de a 2 en paralelo (más conservador que 4 con conexión mala)
+  for(let i=0;i<urls.length;i+=2){
+    await Promise.allSettled(urls.slice(i,i+2).map(u=>obtenerFoto(u).catch(()=>{})));
+    await new Promise(r=>setTimeout(r,300)); // pausa entre lotes para no saturar la conexión mala
+  }
+  await Promise.allSettled(lista.map(p=>obtenerQR(p).catch(()=>{})));
+  setStatus(navigator.onLine?'online':'offline');
+  await limpiarOrfanas(urls);
+  // Segunda pasada en background: reintentar las que no quedaron en cache
+  reintentarFotosFaltantes(urls);
+}
+
+async function reintentarFotosFaltantes(urls) {
+  if(!idb||!navigator.onLine) return;
+  // Esperar 10s antes de arrancar, para no competir con el render inicial
+  await new Promise(r=>setTimeout(r,10_000));
+  for(const url of urls){
+    if(!navigator.onLine) break;
+    // Solo reintentar si NO está ya en IndexedDB
+    try{
+      const b=await dbGet(ST_IMGS,url);
+      if(b instanceof Blob) continue; // ya la tenemos, saltar
+    }catch{}
+    // No está en cache — reintentar de a una con pausa
+    try{
+      const r=await fetch(url,{mode:'cors'});
+      if(r.ok) await comprimirYGuardar(await r.blob(),url);
+    }catch{}
+    await new Promise(r=>setTimeout(r,800)); // pausa entre fotos para no saturar
+  }
+  console.log('[TVD] Reintento de fotos faltantes completado.');
+}
+
+async function limpiarOrfanas(urlsActivas) {
+  if(!idb) return;
+  const activas=new Set(urlsActivas);
+  try { const keys=await dbGetAllKeys(ST_IMGS); if(!keys.length) return; const t=idb.transaction(ST_IMGS,'readwrite'),st=t.objectStore(ST_IMGS); keys.forEach(k=>{if(!activas.has(k))st.delete(k);}); } catch(e){}
+}
+
+// ╔══════════════════════════════════════════════════════════════════╗
+// ║                    QR CODES DE LAS TANDAS                       ║
+// ║   Cambiar las URLs según el cliente                             ║
+// ╚══════════════════════════════════════════════════════════════════╝
+const qrCache=new Map();
+new QRCode(document.getElementById('ig-qr'),{text:'https://www.instagram.com/villar_propiedades',width:160,height:160,colorDark:'#111111',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.M});
+new QRCode(document.getElementById('tas-qr'),{text:'https://wa.me/5491165164932?text='+encodeURIComponent('Hola! Quisiera solicitar una tasación de mi propiedad.'),width:160,height:160,colorDark:'#111111',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.M});
+new QRCode(document.getElementById('web-qr'),{text:'https://www.inmobiliariavillar.com.ar/',width:160,height:160,colorDark:'#111111',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.M});
+
+function qrWaUrl(p) {
+  const key=p.propId||p.id;
+  const monStr=p.moneda==='USD'?'U$D':'$';
+  const montoStr=Number(p.monto||0).toLocaleString('de-DE');
+  const msg=`Hola, me interesa esta propiedad:\n📍 ${(p.barrio||'').toUpperCase()}${p.direccion?' – '+p.direccion:''}\n🏠 ${p.tipo||''} en ${p.operacion||''}\n💰 ${monStr} ${montoStr}\nCódigo: ${key}\nMuchas gracias!`;
+  return 'https://wa.me/'+WA_NUMBER+'?text='+encodeURIComponent(msg);
+}
+
+function generarQRDataUrl(texto) {
+  return new Promise((res,rej)=>{
+    const div=document.createElement('div');
+    try {
+      new QRCode(div,{text:texto,width:300,height:300,correctLevel:QRCode.CorrectLevel.M});
+      setTimeout(()=>{
+        const canvas=div.querySelector('canvas');
+        if(canvas) return res(canvas.toDataURL('image/png'));
+        const img=div.querySelector('img');
+        if(img&&img.src) return res(img.src);
+        rej(new Error('QR sin canvas ni img'));
+      },50);
+    } catch(e){rej(e);}
+  });
+}
+
+async function obtenerQR(p) {
+  const key=p.propId||p.id;
+  if(qrCache.has(key)) return qrCache.get(key);
+  if(idb){try{const cached=await dbGet(ST_QRS,key);if(cached){qrCache.set(key,cached);return cached;}}catch{}}
+  try{const dataUrl=await generarQRDataUrl(qrWaUrl(p));qrCache.set(key,dataUrl);if(idb){try{await dbPut(ST_QRS,dataUrl,key);}catch{}}return dataUrl;}catch{}
+  return '';
+}
+
+const ICONS = {
+  amb:  '<svg class="spec-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-6 9 6v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>',
+  dorm: '<svg class="spec-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 20v-8a2 2 0 012-2h16a2 2 0 012 2v8"/><path d="M2 14h20"/><path d="M6 14v-4a2 2 0 012-2h8a2 2 0 012 2v4"/></svg>',
+  bano: '<svg class="spec-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h16v4a4 4 0 01-4 4H8a4 4 0 01-4-4v-4z"/><path d="M4 12V6a2 2 0 012-2h2v4"/><line x1="8" y1="20" x2="8" y2="22"/><line x1="16" y1="20" x2="16" y2="22"/></svg>',
+  coch: '<svg class="spec-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 11l1.5-4.5h11L19 11"/><rect x="2" y="11" width="20" height="7" rx="2"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/><path d="M2 14h20"/></svg>',
+  m2:   '<svg class="spec-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg>',
+  antig:'<svg class="spec-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>',
+};
+
+// ╔══════════════════════════════════════════════════════════════════╗
+// ║                   FIREBASE — CONFIGURACIÓN                      ║
+// ║   Cambiar por los datos del proyecto Firebase del cliente       ║
+// ╚══════════════════════════════════════════════════════════════════╝
+const app = initializeApp({
+  apiKey:'AIzaSyCDGecFfRUnpA0WZG1NFYuwhHSKyszN8ak',
+  authDomain:'villarprop-353e3.firebaseapp.com',
+  projectId:'villarprop-353e3',
+  storageBucket:'villarprop-353e3.firebasestorage.app',
+  messagingSenderId:'472681000525',
+  appId:'1:472681000525:web:3541bf8943076d220ef604',
+});
+const esSecundario = new URLSearchParams(location.search).has('secondary');
+const db = initializeFirestore(app, {
+  localCache: esSecundario
+    ? memoryLocalCache()
+    : persistentLocalCache({tabManager:persistentSingleTabManager()})
+});
+const COL_PROPS='propiedades';
+
+function sortByMonto(list) {
+  return [...list].sort((a,b)=>Number(b.monto||0)-Number(a.monto||0));
+}
+
+// Construye los dos pools a partir de la lista completa de propiedades
+function buildPools(allProps) {
+  poolVentas   = sortByMonto(allProps.filter(p=>p.operacion==='Venta'));
+  poolAlquiler = sortByMonto(allProps.filter(p=>p.operacion==='Alquiler'||p.operacion==='Temporal'));
+}
+
+// Devuelve las CELDAS propiedades del pool a partir del offset actual, con wrap-around
+function getPaginaPool(pool, offset) {
+  if(!pool.length) return [];
+  return Array.from({length:CELDAS}, (_,i) => pool[(offset + i) % pool.length]);
+}
+
+function setStatus(s){const d=document.getElementById('net-dot');d.className='';d.classList.add(s);}
+
+async function prepararFotos(wrapId, activeClass) {
+  // usa todas las fotos de ambos pools para las tandas
+  const allProps = [...poolVentas, ...poolAlquiler];
+  const pool = allProps.map(p=>Array.isArray(p.fotos)&&p.fotos[0]?p.fotos[0]:null).filter(Boolean);
+  // shuffle local para la tanda
+  const shuffled = [...pool].sort(()=>Math.random()-0.5);
+  if(!shuffled.length) return [];
+  const wrap=document.getElementById(wrapId);
+  wrap.innerHTML='';
+  const srcs=await Promise.all(shuffled.map(url=>obtenerFoto(url).catch(()=>url)));
+  const slides=[];
+  srcs.filter(Boolean).forEach((src,i)=>{
+    const img=document.createElement('img');
+    img.src=src;
+    if(i===0) img.classList.add(activeClass);
+    wrap.appendChild(img);
+    slides.push(img);
+  });
+  return slides;
+}
+
+async function ejecutarTandaOverlay(overlayId, placaId, slides, activeClass, duracion, fichasNuevas) {
+  return new Promise(async res=>{
+    const ov=document.getElementById(overlayId);
+    const s=Math.min(window.innerWidth/1920,window.innerHeight/1080);
+    document.getElementById(placaId).style.transform=`scale(${s})`;
+
+    if(slides.length){slides.forEach(sl=>sl.classList.remove(activeClass));slides[0].classList.add(activeClass);}
+    let cur=0;
+    let timer=null;
+    if(slides.length>1){
+      timer=setInterval(()=>{
+        slides[cur].classList.remove(activeClass);
+        cur=(cur+1)%slides.length;
+        slides[cur].classList.add(activeClass);
+      },5000);
+    }
+
+    void ov.offsetWidth;
+    ov.classList.add('visible');
+    window._tvdTandaInicioMs = Date.now(); // ← el shell lo lee para saber cuándo arrancó
+
+    await new Promise(r=>setTimeout(r,Math.max(0,duracion-5000)));
+
+    // Instalar las fichas nuevas mientras la tanda está visible
+    fotoCiclos=new Array(CELDAS).fill(0);
+    fichasNuevas.forEach((nueva,i)=>{
+      const slot=slots[i];
+      nueva.style.cssText='position:absolute;inset:0;opacity:1;';
+      slot.celda.appendChild(nueva);
+      slot.ficha.remove();
+      nueva.style.cssText='';
+      slots[i]={celda:slot.celda,ficha:nueva};
+    });
+
+    clearInterval(timer);
+    ov.classList.remove('visible');
+    window._tvdTandaInicioMs = null; // tanda terminó
+    setTimeout(()=>res(),900);
+  });
+}
+
+async function ejecutarTanda() {
+  const esVentas   = turnoSecuencia === 'ventas';
+  const pool       = esVentas ? poolVentas : poolAlquiler;
+  const offset     = esVentas ? offsetVentas : offsetAlquiler;
+  const nuevoOffset = pool.length > 0 ? (offset + CELDAS) % pool.length : 0;
+
+  const nextProps = getPaginaPool(pool, nuevoOffset);
+  await precargar(nextProps).catch(()=>{});
+  const fichasNuevas = await Promise.all(nextProps.map(p=>crearFicha(p)));
+
+  if(esVentas) offsetVentas   = nuevoOffset;
+  else         offsetAlquiler = nuevoOffset;
+
+  const wrapId    = tandaTurno===0?'ig-foto-wrap' :tandaTurno===1?'tas-foto-wrap':'web-foto-wrap';
+  const cls       = tandaTurno===0?'ig-activa'    :tandaTurno===1?'tas-activa'   :'web-activa';
+  const overlayId = tandaTurno===0?'ig-overlay'   :tandaTurno===1?'tas-overlay'  :'web-overlay';
+  const placaId   = tandaTurno===0?'ig-placa'     :tandaTurno===1?'tas-placa'    :'web-placa';
+  const duracion  = tandaTurno===0?TANDA_IG_DURACION:tandaTurno===1?TANDA_TAS_DURACION:TANDA_WEB_DURACION;
+
+  const slides = await prepararFotos(wrapId, cls);
+  await ejecutarTandaOverlay(overlayId, placaId, slides, cls, duracion, fichasNuevas);
+
+  tandaTurno     = (tandaTurno + 1) % 3;
+  turnoSecuencia = esVentas ? 'alquiler' : 'ventas';
+}
+
+function avanzarFoto(ficha) {
+  const imgs=ficha._slides;
+  if(!imgs||imgs.length<2) return;
+  const sig=(ficha._fotoCur+1)%imgs.length;
+  const img=imgs[sig];
+  const activar=()=>{imgs[ficha._fotoCur].classList.remove('activa');ficha._fotoCur=sig;img.classList.add('activa');};
+  const origSrc=img.dataset.origSrc||img.src;
+  if(!img.dataset.origSrc) img.dataset.origSrc=img.src;
+  const intentarActivar=()=>{
+    if(img.complete&&img.naturalWidth>0){activar();}
+    else{obtenerFoto(origSrc).then(src=>{if(src&&src!==img.src){img.onload=activar;img.onerror=activar;img.src=src;}else activar();}).catch(()=>activar());}
+  };
+  if(img.complete&&img.naturalWidth>0) activar();
+  else if(!img.complete){img.onload=activar;img.onerror=()=>intentarActivar();if(img.src&&img.naturalWidth===0)intentarActivar();}
+  else intentarActivar();
+}
+
+async function crearFicha(p) {
+  const el=document.createElement('div');
+  el.className='ficha';
+  const fotasOrig=Array.isArray(p.fotos)?p.fotos:[];
+  const etiquetas=Array.isArray(p.etiquetas)?p.etiquetas:[];
+  const fotos=(await Promise.all(fotasOrig.slice(0,FOTOS_POR_VUELTA).map(async url=>{if(!url)return '';if(blobMap.has(url))return blobMap.get(url);return obtenerFoto(url).catch(()=>url);}))).filter(Boolean);
+  const qrSrc=await obtenerQR(p);
+  const moneda=p.moneda==='USD'?'U$D':'$';
+  const monto=Number(p.monto||0).toLocaleString('de-DE');
+  const expNum=Number(p.expensas||0);
+  const ambLabel=p.ambientes==='Monoambiente'?'Mono':(p.ambientes||'—');
+  const dormVal=p.ambientes==='Monoambiente'?'—':(p.dormis||'—');
+  const cochVal=(p.cochera&&p.cochera!=='No')?p.cochera:'—';
+  const antigVal=(p.antiguedad&&p.antiguedad!=='0')?p.antiguedad+'a':'—';
+  const expHTML=expNum>0?'<div class="expensas">+ $ '+expNum.toLocaleString('de-DE')+' exp.</div>':'';
+  const descHTML=p.descripcion?'<div class="descripcion">'+p.descripcion+'</div>':'';
+  const tagsHTML=etiquetas.length?'<div class="foto-etiquetas">'+etiquetas.map(t=>'<span class="foto-etiqueta">'+t+'</span>').join('')+'</div>':'';
+  const fotosHTML=fotos.map((src,i)=>'<img class="foto-slide'+(i===0?' activa':'')+'" src="'+src+'" decoding="async" loading="eager">').join('');
+  const dirHTML=p.direccion?'<div class="direccion"> '+p.direccion+'</div>':'';
+  el.innerHTML=
+    '<div class="fila-top">'+
+      '<div class="foto-wrap">'+fotosHTML+tagsHTML+
+        '<div class="foto-watermark"><img src="https://static.tokkobroker.com/tfw_images/78_Villar%20Propiedades/Villar_Logo_PNG.png" decoding="async"></div>'+
+        '<div class="foto-qr"><img src="'+qrSrc+'" decoding="async"></div>'+
+      '</div>'+
+      '<div class="datos"><div class="datos-arriba">'+
+        '<div class="tipo">'+(p.tipo||'')+'</div>'+
+        '<div class="badge-op">'+(p.operacion||'')+'</div>'+
+        '<div class="barrio">'+(p.barrio||'').toUpperCase()+'</div>'+
+        dirHTML+
+        '<div class="precio-area"><div class="precio-row">'+
+          '<span class="precio-moneda">'+moneda+'</span>'+
+          '<span class="precio-monto">'+monto+'</span>'+
+        '</div>'+expHTML+'</div>'+
+        descHTML+
+      '</div><div class="datos-spacer"></div></div>'+
+    '</div>'+
+    '<div class="specs-bar">'+
+      '<div class="spec">'+ICONS.amb+'<div class="spec-texts"><span class="spec-val">'+ambLabel+'</span><span class="spec-lbl">Amb</span></div></div>'+
+      '<div class="spec">'+ICONS.dorm+'<div class="spec-texts"><span class="spec-val">'+dormVal+'</span><span class="spec-lbl">Dorm</span></div></div>'+
+      '<div class="spec">'+ICONS.bano+'<div class="spec-texts"><span class="spec-val">'+(p.banos||'—')+'</span><span class="spec-lbl">Baños</span></div></div>'+
+      '<div class="spec">'+ICONS.coch+'<div class="spec-texts"><span class="spec-val">'+cochVal+'</span><span class="spec-lbl">Coch</span></div></div>'+
+      '<div class="spec">'+ICONS.m2+'<div class="spec-texts"><span class="spec-val">'+(p.m2||'—')+'</span><span class="spec-lbl">m²</span></div></div>'+
+      '<div class="spec">'+ICONS.antig+'<div class="spec-texts"><span class="spec-val">'+antigVal+'</span><span class="spec-lbl">Antg</span></div></div>'+
+    '</div>';
+  el._slides=Array.from(el.querySelectorAll('.foto-slide'));
+  el._fotoCur=0;
+  return el;
+}
+
+async function buildGrid() {
+  const vp=document.getElementById('tv-viewport');
+  vp.innerHTML=''; slots=[];
+  // Arranca con la primera página de ventas
+  const pagina = getPaginaPool(poolVentas.length ? poolVentas : poolAlquiler, 0);
+  const fichas=await Promise.all(pagina.map(p=>crearFicha(p)));
+  fichas.forEach(ficha=>{
+    const celda=document.createElement('div');
+    celda.className='celda';
+    celda.appendChild(ficha);
+    vp.appendChild(celda);
+    slots.push({celda,ficha});
+  });
+}
+
+async function mostrarGrid() {
+  if(gridBuilt) return;
+  if(!poolVentas.length && !poolAlquiler.length) return;
+  gridBuilt=true;
+  document.getElementById('placeholder').classList.add('oculto');
+  await buildGrid();
+  arrancarCascada();
+}
+
+function arrancarCascada() {
+  if(cascadeTimer) clearTimeout(cascadeTimer);
+  async function ejecutarCascada() {
+    if(enPausa) return;
+    CASCADE_SLOTS.forEach((slotIdx,orden)=>{
+      setTimeout(()=>{
+        const slot=slots[slotIdx];
+        if(!slot) return;
+        fotoCiclos[slotIdx]++;
+        avanzarFoto(slot.ficha);
+        if(orden===CASCADE_SLOTS.length-1) tickCascade();
+      },orden*CASCADE_STEP_MS);
+    });
+    const durCascada=(CASCADE_SLOTS.length-1)*CASCADE_STEP_MS;
+    await new Promise(r=>setTimeout(r,durCascada+50));
+    if(fotoCiclos[0]>=FOTOS_ANTES_TANDA){
+      enPausa=true;
+      await new Promise(r=>setTimeout(r,TANDA_PAUSA_ANTES));
+      await ejecutarTanda();
+      enPausa=false;
+      cascadeTimer=setTimeout(arrancarCascada,PAUSA_MS);
+      return;
+    }
+    cascadeTimer=setTimeout(ejecutarCascada,PAUSA_MS);
+  }
+  ejecutarCascada();
+}
+
+function suscribirProps() {
+  clearTimeout(fsRetryTimer);
+  if(unsubProps){unsubProps();unsubProps=null;}
+  setStatus('syncing');
+  const q=query(collection(db,COL_PROPS));
+  const emergencyTimer=setTimeout(()=>{suscribirProps();},45_000);
+  unsubProps=onSnapshot(q,async snapshot=>{
+    clearTimeout(emergencyTimer);
+    setStatus('online');
+    const p=[];
+    snapshot.forEach(doc=>{const d=doc.data();if(d.visible!==false&&d.status!=='inactive')p.push({id:doc.id,...d});});
+    if(p.length>0){
+      buildPools(p);
+      if(idb) await dbPutAll(ST_PROPS,p).catch(()=>{});
+      mostrarGrid();
+      precargar([...poolVentas,...poolAlquiler]).catch(()=>{});
+    }
+    if(snapshot.metadata.fromCache&&!navigator.onLine)setStatus('offline');
+  },err=>{clearTimeout(emergencyTimer);setStatus('offline');fsRetryTimer=setTimeout(suscribirProps,10000);});
+}
+
+let mouseTimer;
+function ocultarMouse(){document.body.style.cursor='none';}
+function mostrarMouse(){document.body.style.cursor='default';clearTimeout(mouseTimer);mouseTimer=setTimeout(ocultarMouse,2000);}
+window.addEventListener('mousemove',mostrarMouse);
+
+document.addEventListener('click',()=>{
+  if(!document.fullscreenElement){
+    const d=document.documentElement;
+    if(d.requestFullscreen)d.requestFullscreen().catch(()=>{});
+    else if(d.webkitRequestFullscreen)d.webkitRequestFullscreen();
+    else if(d.msRequestFullscreen)d.msRequestFullscreen();
+  }
+});
+document.addEventListener('fullscreenchange',()=>{if(!document.fullscreenElement){clearTimeout(mouseTimer);document.body.style.cursor='default';}});
+
+function ajustarScale() {
+  const vp=document.getElementById('tv-viewport');
+  if(!vp) return;
+  const s=Math.min(window.innerWidth/1920,window.innerHeight/1080);
+  vp.style.transform=`scale(${s})`;
+  ['ig-placa','tas-placa','web-placa'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el) el.style.transform=`scale(${s})`;
+  });
+}
+window.addEventListener('resize',ajustarScale);
+window.addEventListener('online',()=>{
+  suscribirProps();
+  // Aprovechar la reconexión para reintentar fotos que no se cachearon antes
+  const todasLasUrls=[...poolVentas,...poolAlquiler].flatMap(p=>Array.isArray(p.fotos)?p.fotos:[]);
+  if(todasLasUrls.length) reintentarFotosFaltantes(todasLasUrls);
+});
+window.addEventListener('offline',()=>setStatus('offline'));
+
+let lastCascadeAt=Date.now();
+function tickCascade(){lastCascadeAt=Date.now();}
+setInterval(()=>{if(!gridBuilt||enPausa)return;if(Date.now()-lastCascadeAt>120_000){lastCascadeAt=Date.now();arrancarCascada();}},60_000);
+
+// ── Watchdog interno — corrige negro ─────────────────────────────
+let watchdogReintentosCache=0;
+setInterval(async ()=>{
+  if(!gridBuilt){
+    // Si nunca se construyó la grilla (ej: no había internet al arrancar y la
+    // primera lectura de cache local falló o estaba vacía), reintentar desde IndexedDB
+    // sin esperar pasivamente a que vuelva la red.
+    if(watchdogReintentosCache>=5) return;
+    watchdogReintentosCache++;
+    try{
+      if(!idb) idb=await abrirDBConReintentos(1);
+      if(idb){
+        const cached=await dbGetAll(ST_PROPS);
+        if(cached&&cached.length){
+          buildPools(cached);
+          await precargar([...poolVentas,...poolAlquiler]).catch(()=>{});
+          mostrarGrid();
+        }
+      }
+    }catch(e){ console.warn('[TVD] Reintento de cache local desde watchdog falló:',e); }
+    return;
+  }
+  // Asegurarse que el viewport tenga escala correcta
+  ajustarScale();
+  // Asegurarse que el placeholder esté oculto
+  const ph=document.getElementById('placeholder');
+  if(ph && !ph.classList.contains('oculto')) ph.classList.add('oculto');
+  // Si la cascada está detenida y no hay tanda, reanudar
+  if(!enPausa && !cascadeTimer && Date.now()-lastCascadeAt>30_000){
+    arrancarCascada();
+  }
+}, 10_000);
+
+// ── Auto-update silencioso ────────────────────────────────────────
+// ╔══════════════════════════════════════════════════════════════════╗
+// ║                VERSION — CAMBIAR PARA FORZAR UPDATE             ║
+// ║   Cada vez que subas cambios, incrementá el número              ║
+// ║   Ejemplos: '1.0.2' → '1.0.3' → '1.0.4'                       ║
+// ╚══════════════════════════════════════════════════════════════════╝
+const VERSION = '1.0.2';
+
+async function boot() {
+  ajustarScale();
+  idb=await abrirDBConReintentos();
+  if(idb){
+    try{
+      const cached=await dbGetAll(ST_PROPS);
+      if(cached&&cached.length){
+        buildPools(cached);
+        await precargar([...poolVentas,...poolAlquiler]).catch(e=>console.error('[TVD] precargar falló en boot:',e));
+        mostrarGrid();
+        if(!navigator.onLine)setStatus('offline');
+      } else {
+        console.warn('[TVD] No hay propiedades en cache local (IndexedDB vacía) — esperando conexión.');
+      }
+    }catch(e){ console.error('[TVD] Error leyendo cache local de propiedades:',e); }
+  } else {
+    console.error('[TVD] No se pudo abrir IndexedDB tras reintentos — sin cache local disponible esta sesión.');
+  }
+  suscribirProps();
+}
+
+// Reintenta abrir IndexedDB porque a veces, justo al arrancar Windows (disco/perfil
+// todavía asentándose), la primera apertura falla de forma transitoria.
+async function abrirDBConReintentos(intentos=3) {
+  for(let i=1;i<=intentos;i++){
+    try{ return await abrirDB(); }
+    catch(e){
+      console.warn(`[TVD] abrirDB() falló (intento ${i}/${intentos}):`,e);
+      if(i<intentos) await new Promise(r=>setTimeout(r,1500*i));
+    }
+  }
+  return null;
+}
+
+// Exponer estado para que el shell pueda leerlo
+window.tvdGetState = () => ({ offsetVentas, offsetAlquiler, tandaTurno, turnoSecuencia });
+window.tvdSetState = (s) => {
+  if(s.offsetVentas   !== undefined) offsetVentas   = s.offsetVentas;
+  if(s.offsetAlquiler !== undefined) offsetAlquiler = s.offsetAlquiler;
+  if(s.tandaTurno     !== undefined) tandaTurno     = s.tandaTurno;
+  if(s.turnoSecuencia !== undefined) turnoSecuencia = s.turnoSecuencia;
+};
+window.tvdGetTandaMs = () => window._tvdTandaInicioMs
+  ? Date.now() - window._tvdTandaInicioMs
+  : null; // null = no hay tanda al aire
+
+boot();
+</script>
+</body>
+</html>
