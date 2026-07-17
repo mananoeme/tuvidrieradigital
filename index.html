@@ -866,20 +866,6 @@
     </div>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
-<script>
-const lenis = new Lenis({
-    duration: 0.6,
-    easing: (t) => 1 - Math.pow(1 - t, 3),
-    smooth: true,
-    mouseMultiplier: 1.2,
-    smoothTouch: false,
-    touchMultiplier: 2,
-});
-function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
-requestAnimationFrame(raf);
-</script>
-
 <script>
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
