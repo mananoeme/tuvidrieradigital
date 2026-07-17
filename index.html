@@ -637,7 +637,6 @@
         <a href="https://wa.me/5491156131930?text=Hola%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n%20del%20sistema%0AMi%20nombre%20es%3A%0ADe%3A%0AGracias" onclick="gtag('event','whatsapp_click')" target="_blank" class="btn-primary">Solicitar más información</a>
         <a href="#como-funciona" class="btn-ghost">Ver cómo funciona</a>
     </div>
-    <p style="color: rgba(255,255,255,0.5); font-size: 14px; margin-top: 16px; font-family: 'DM Mono', monospace; letter-spacing: 0.05em;">Precios y planes al final de la página</p>
     <div class="tv-wrap">
         <img src="showcase.png" alt="Vidriera digital TVD" style="width:100%; display:block; border-radius:4px;">
     </div>
@@ -874,20 +873,6 @@ const observer = new IntersectionObserver((entries) => {
     });
 }, { threshold: 0.12 });
 document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-</script>
-
-<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
-<script>
-const lenis = new Lenis({
-    duration: 1.4,
-    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-    smooth: true,
-    mouseMultiplier: 1.0,
-    smoothTouch: false,
-    touchMultiplier: 2,
-});
-function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
-requestAnimationFrame(raf);
 </script>
 
 <!-- ══ WA FLOTANTE ══ -->
