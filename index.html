@@ -875,6 +875,45 @@ const observer = new IntersectionObserver((entries) => {
 document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 </script>
 
+<!-- ══ SCROLL DEPTH TRACKING ══ -->
+<script>
+(function () {
+    const hitos = [25, 50, 75, 90, 100];
+    const marcados = new Set();
+
+    function porcentajeScrolleado() {
+        const alturaTotal = document.documentElement.scrollHeight - window.innerHeight;
+        if (alturaTotal <= 0) return 100;
+        return Math.round((window.scrollY / alturaTotal) * 100);
+    }
+
+    function chequearScroll() {
+        const pct = porcentajeScrolleado();
+        hitos.forEach(function (hito) {
+            if (pct >= hito && !marcados.has(hito)) {
+                marcados.add(hito);
+                gtag('event', 'scroll_depth', {
+                    'percent_scrolled': hito
+                });
+            }
+        });
+    }
+
+    let ticking = false;
+    window.addEventListener('scroll', function () {
+        if (!ticking) {
+            requestAnimationFrame(function () {
+                chequearScroll();
+                ticking = false;
+            });
+            ticking = true;
+        }
+    });
+
+    chequearScroll();
+})();
+</script>
+
 <!-- ══ WA FLOTANTE ══ -->
 <a class="wa-float" href="https://wa.me/5491156131930?text=Hola%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n%20del%20sistema%0AMi%20nombre%20es%3A%0ADe%3A%0AGracias" onclick="gtag('event','whatsapp_float_click')" target="_blank" rel="noopener noreferrer">
     <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
