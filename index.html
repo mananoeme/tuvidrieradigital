@@ -823,7 +823,7 @@
                 <li>Central de gestión de propiedades</li>
                 <li>Actualización en tiempo real</li>
             </ul>
-            <a href="https://wa.me/5491156131930?text=Hola%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n%20del%20sistema%0AMi%20nombre%20es%3A%0ADe%3A%0AGracias" onclick="gtag('event','whatsapp_click')" target="_blank" class="btn-ghost" style="display:block; text-align:center; color:#0D3B6E; border-color:var(--gray-mid); background:#fff; padding:12px; border-radius:8px; font-size:13px; text-transform:uppercase; letter-spacing:0.05em; text-decoration:none;">Solicitar más información</a>
+            <a href="https://wa.me/5491125504134?text=Hola%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n%20del%20sistema%0AMi%20nombre%20es%3A%0ADe%3A%0AGracias" onclick="gtag('event','whatsapp_click')" target="_blank" class="btn-ghost" style="display:block; text-align:center; color:#0D3B6E; border-color:var(--gray-mid); background:#fff; padding:12px; border-radius:8px; font-size:13px; text-transform:uppercase; letter-spacing:0.05em; text-decoration:none;">Solicitar más información</a>
         </div>
 
         <!-- PLAN 2: VIDRIERA + CRM -->
@@ -841,7 +841,7 @@
                 <li>Actualización en tiempo real</li>
                 <li>Software TVD + Mini PC N100 incluidos</li>
             </ul>
-            <a href="https://wa.me/5491156131930?text=Hola%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n%20del%20sistema%0AMi%20nombre%20es%3A%0ADe%3A%0AGracias" onclick="gtag('event','whatsapp_click')" target="_blank" class="btn-primary" style="display:block; text-align:center; padding:12px; border-radius:8px; font-size:13px; text-transform:uppercase; letter-spacing:0.05em; text-decoration:none;">Solicitar más información</a>
+            <a href="https://wa.me/5491125504134?text=Hola%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n%20del%20sistema%0AMi%20nombre%20es%3A%0ADe%3A%0AGracias" onclick="gtag('event','whatsapp_click')" target="_blank" class="btn-primary" style="display:block; text-align:center; padding:12px; border-radius:8px; font-size:13px; text-transform:uppercase; letter-spacing:0.05em; text-decoration:none;">Solicitar más información</a>
         </div>
 
     </div>
@@ -853,7 +853,7 @@
     <h2>Tu competencia<br>todavía usa <span>papel.</span></h2>
     <p>La primera inmobiliaria de cada zona que adopta TVD se posiciona como referente tecnológico.<br>Esa ventana no dura para siempre.</p>
     <div class="cta-btns">
-        <a href="https://wa.me/5491156131930?text=Hola%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n%20del%20sistema%0AMi%20nombre%20es%3A%0ADe%3A%0AGracias" onclick="gtag('event','whatsapp_click')" target="_blank" class="btn-primary">Solicitar más información</a>
+        <a href="https://wa.me/5491125504134?text=Hola%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n%20del%20sistema%0AMi%20nombre%20es%3A%0ADe%3A%0AGracias" onclick="gtag('event','whatsapp_click')" target="_blank" class="btn-primary">Solicitar más información</a>
         <a onclick="gtag('event','email_click')" target="_blank" href="mailto:info@tuvidrieradigital.com.ar?subject=Solicitud%20de%20Demo&body=Hola%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n%20del%20sistema%0AMi%20nombre%20es%3A%0ADe%3A%0AGracias" class="btn-ghost" style="white-space:nowrap;">Enviar email</a>
     </div>
 </section>
@@ -862,7 +862,7 @@
 <footer class="footer">
     <img src="tuvidriera.png" alt="TuVidrieraDigital" style="width:240px; margin:0 auto 16px; display:block; opacity:0.9;">
     <div class="footer-info">
-        Juan Fernando Molina &nbsp;·&nbsp; 11 5613 1930 &nbsp;·&nbsp; info@tuvidrieradigital.com.ar
+        Juan Fernando Molina &nbsp;·&nbsp; 11 2550 4134 &nbsp;·&nbsp; info@tuvidrieradigital.com.ar
     </div>
 </footer>
 
@@ -875,47 +875,8 @@ const observer = new IntersectionObserver((entries) => {
 document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 </script>
 
-<!-- ══ SCROLL DEPTH TRACKING ══ -->
-<script>
-(function () {
-    const hitos = [25, 50, 75, 90, 100];
-    const marcados = new Set();
-
-    function porcentajeScrolleado() {
-        const alturaTotal = document.documentElement.scrollHeight - window.innerHeight;
-        if (alturaTotal <= 0) return 100;
-        return Math.round((window.scrollY / alturaTotal) * 100);
-    }
-
-    function chequearScroll() {
-        const pct = porcentajeScrolleado();
-        hitos.forEach(function (hito) {
-            if (pct >= hito && !marcados.has(hito)) {
-                marcados.add(hito);
-                gtag('event', 'scroll_depth', {
-                    'percent_scrolled': hito
-                });
-            }
-        });
-    }
-
-    let ticking = false;
-    window.addEventListener('scroll', function () {
-        if (!ticking) {
-            requestAnimationFrame(function () {
-                chequearScroll();
-                ticking = false;
-            });
-            ticking = true;
-        }
-    });
-
-    chequearScroll();
-})();
-</script>
-
 <!-- ══ WA FLOTANTE ══ -->
-<a class="wa-float" href="https://wa.me/5491156131930?text=Hola%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n%20del%20sistema%0AMi%20nombre%20es%3A%0ADe%3A%0AGracias" onclick="gtag('event','whatsapp_float_click')" target="_blank" rel="noopener noreferrer">
+<a class="wa-float" href="https://wa.me/5491125504134?text=Hola%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n%20del%20sistema%0AMi%20nombre%20es%3A%0ADe%3A%0AGracias" onclick="gtag('event','whatsapp_float_click')" target="_blank" rel="noopener noreferrer">
     <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
         <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
         <path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.978-1.413A9.953 9.953 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18a7.952 7.952 0 01-4.104-1.14l-.29-.173-3.007.854.87-2.931-.19-.302A7.952 7.952 0 014 12c0-4.418 3.582-8 8-8s8 3.582 8 8-3.582 8-8 8z"/>
