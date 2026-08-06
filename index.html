@@ -245,6 +245,7 @@
         }
         .glass-photo-wrap { position: relative; aspect-ratio: 4/3; overflow:hidden; background:#0A1830; }
         .glass-photo-wrap img, .glass-photo-wrap video { width:100%; height:100%; object-fit:contain; display:block; }
+        .glass-photo-wrap img.crop-fill { object-fit:cover; object-position: center 22%; }
         .glass-label {
             position:absolute; top:14px; left:14px; z-index:2;
             font-family:'DM Mono',monospace; font-size:9px; letter-spacing:.15em; text-transform:uppercase;
@@ -473,7 +474,7 @@
         <div class="glass-frame">
             <div class="glass-photo-wrap">
                 <div class="glass-label">A4 · Impreso</div>
-                <img src="vidriera-antes.jpg" alt="Vidriera de inmobiliaria con hojas A4 impresas">
+                <img src="vidriera-antes.jpg" alt="Vidriera de inmobiliaria con hojas A4 impresas" class="crop-fill">
             </div>
             <div class="glass-photo-wrap">
                 <div class="glass-label after-lbl">TVD · En vivo</div>
@@ -628,7 +629,7 @@
 <!-- ══ VIDEO DEMO ══ -->
 <section class="videos-section fade-in">
     <div class="section-label">Video demostración</div>
-    <h2 style="font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight:900; letter-spacing:-0.5px; color:#0D3B6E;">Mirá cómo se ve.</h2>
+    <h2 style="font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight:900; letter-spacing:-0.5px; color:#0D3B6E;">Mirá cómo queda.</h2>
     <div style="max-width:640px; margin:32px auto 0;">
         <div class="demo-frame" style="background:#000;">
             <video autoplay muted loop playsinline poster="showcase.png" style="width:100%; height:100%; object-fit:cover;">
