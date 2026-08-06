@@ -238,15 +238,15 @@
         /* ── ANTES/DESPUÉS EN VIDRIERA (fotos reales) ── */
         .glass-wrap { width: 92%; max-width: 900px; margin: 44px auto 0; }
         .glass-frame {
-            display: flex; align-items:stretch; height: 460px;
+            display: flex; align-items:stretch; height: 460px; gap: 4px;
             border-radius: 10px; overflow: hidden;
             box-shadow: 0 20px 60px rgba(0,0,0,0.45);
-            border: 1px solid rgba(255,255,255,0.12);
         }
-        .glass-photo-wrap { position: relative; overflow:hidden; background:#0A1830; height:100%; }
+        .glass-photo-wrap { position: relative; overflow:hidden; background:#0A1830; height:100%; border-radius:8px; }
         .glass-photo-wrap.before { aspect-ratio: 9/16; flex: none; }
         .glass-photo-wrap.after { flex: 1; min-width:0; }
         .glass-photo-wrap img, .glass-photo-wrap video { width:100%; height:100%; object-fit:contain; display:block; }
+        .glass-photo-wrap.after video { object-fit:cover; object-position:center; }
         .glass-photo-wrap img.crop-fill { object-fit:cover; object-position: center 15%; }
         @media (max-width: 700px){
             .glass-frame { flex-direction:column; height:auto; }
