@@ -478,49 +478,64 @@
         </div>
         <div class="glass-caption">Así podría verse tu vidriera mañana.</div>
     </div>
-
-    <div class="hero-flow-card">
-        <div class="hero-flow">
-            <div class="flow-line"><span>Sincronizás TVD con tu CRM.</span></div>
-            <div class="flow-line"><span>Cambiaste un precio. La pantalla se actualiza sola.</span></div>
-            <div class="flow-line"><span>Vendiste una propiedad. Desaparece automáticamente.</span></div>
-            <div class="flow-line"><span>Cada aviso tiene QR → WhatsApp directo.</span></div>
-            <div class="flow-line"><span>Con tus colores, tu logo, tu branding.</span></div>
-        </div>
-        <div class="hero-ctas" style="margin-top:22px;">
-            <a href="#como-funciona" class="btn-ghost">Ver cómo funciona</a>
-        </div>
-    </div>
-
-    <!-- Franja de confianza -->
-    <ul class="trust-strip">
-        <li>Instalación en una visita</li>
-        <li>Pago único</li>
-        <li>Sin abonos</li>
-        <li>Soporte técnico incluido</li>
-        <li>Compatible con cualquier TV</li>
-    </ul>
 </div>
 
-<!-- ══ VIDEO DEBAJO DEL HERO ══ -->
-<section style="background:#08213e; padding:48px 24px 56px; text-align:center;">
-    <div style="max-width:340px; margin:0 auto;">
-        <div style="border-radius:18px; overflow:hidden; box-shadow:0 20px 50px rgba(0,0,0,.45); aspect-ratio:9/16; background:#000;">
-            <video id="heroVideo" controls playsinline style="width:100%; height:100%; object-fit:cover; display:block;">
-                <source src="video-hero.mp4" type="video/mp4">
-            </video>
+<!-- ══ VIDEO + CÓMO FUNCIONA ══ -->
+<section style="background:#08213e; padding:48px 24px 56px;">
+    <div style="max-width:900px; margin:0 auto; display:grid; grid-template-columns: 340px 1fr; gap:40px; align-items:center;" class="hero-video-grid">
+        <div style="max-width:340px; margin:0 auto; width:100%;">
+            <div style="border-radius:18px; overflow:hidden; box-shadow:0 20px 50px rgba(0,0,0,.45); aspect-ratio:9/16; background:#000;">
+                <video id="heroVideo" controls playsinline style="width:100%; height:100%; object-fit:cover; display:block;">
+                    <source src="video-hero.mp4" type="video/mp4">
+                </video>
+            </div>
+        </div>
+
+        <div>
+            <div class="hero-flow-card" style="margin:0;">
+                <div class="hero-flow">
+                    <div class="flow-line"><span>Sincronizás TVD con tu CRM.</span></div>
+                    <div class="flow-line"><span>Cambiaste un precio. La pantalla se actualiza sola.</span></div>
+                    <div class="flow-line"><span>Vendiste una propiedad. Desaparece automáticamente.</span></div>
+                    <div class="flow-line"><span>Cada aviso tiene QR → WhatsApp directo.</span></div>
+                    <div class="flow-line"><span>Con tus colores, tu logo, tu branding.</span></div>
+                </div>
+                <div class="hero-ctas" style="margin-top:22px; align-items:flex-start;">
+                    <a href="#como-funciona" class="btn-ghost">Ver cómo funciona</a>
+                </div>
+            </div>
+
+            <!-- Franja de confianza -->
+            <ul class="trust-strip" style="justify-content:flex-start; margin:24px 0 0;">
+                <li>Instalación en una visita</li>
+                <li>Pago único</li>
+                <li>Sin abonos</li>
+                <li>Soporte técnico incluido</li>
+                <li>Compatible con cualquier TV</li>
+            </ul>
         </div>
     </div>
 </section>
+<style>
+    @media (max-width:760px){
+        .hero-video-grid{ grid-template-columns:1fr !important; }
+        .hero-video-grid .hero-flow,
+        .hero-video-grid .hero-ctas,
+        .hero-video-grid .trust-strip{ text-align:center; align-items:center; justify-content:center; }
+    }
+</style>
 <script>
     (function(){
         var v = document.getElementById('heroVideo');
         if (!v) return;
         v.addEventListener('ended', function(){
+            v.muted = true;
             v.currentTime = 0;
+            v.play().catch(function(){});
         });
     })();
 </script>
+
 
 <!-- ══ FRASE DE PAUSA ══ -->
 <section class="pause-statement">
