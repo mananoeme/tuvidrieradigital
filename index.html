@@ -177,9 +177,16 @@
             .hero-top-text .hero-tag, .hero-top-text h1 { text-align:center !important; }
         }
         .hero-flow {
-            max-width: 560px; margin: 32px auto 40px;
-            display: flex; flex-direction: column; gap: 10px;
+            max-width: 480px; margin: 0 auto;
+            display: flex; flex-direction: column; gap: 12px;
             text-align: left;
+        }
+        .hero-flow-card {
+            max-width: 560px; margin: 32px auto 28px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 14px;
+            padding: 26px 28px;
         }
         .flow-line {
             font-family: 'DM Mono', monospace;
@@ -193,16 +200,17 @@
             content: '→'; position:absolute; left:0; color: var(--red);
         }
         .trust-strip {
-            list-style:none; display:flex; flex-direction:column; align-items:flex-start; gap: 10px;
-            max-width: 300px; margin: 34px auto 0; padding: 0;
+            list-style:none; display:flex; flex-direction:row; flex-wrap:wrap; justify-content:center; align-items:center; gap: 8px 18px;
+            max-width: 520px; margin: 28px auto 0; padding: 0;
         }
         .trust-strip li {
             font-family:'DM Mono',monospace; font-size: 11px; letter-spacing:.03em;
             color: rgba(255,255,255,0.8);
             display:flex; align-items:center; gap:7px;
-            text-align:left;
+            text-align:left; white-space:nowrap;
         }
         .trust-strip li::before { content:'✓'; color: var(--whatsapp); font-weight:700; font-size:13px; }
+        @media (max-width:520px){ .trust-strip{ gap:8px 14px; } .hero-flow-card{ padding:22px 20px; } }
 
         /* ── FRASE DE PAUSA ── */
         .pause-statement { background: #08213e; padding: 56px 24px; text-align:center; }
@@ -454,30 +462,8 @@
 
     <p class="hero-question">Sin imprimir carteles. Sin ir hasta el local a cambiar un precio.</p>
 
-    <div class="hero-flow">
-        <div class="flow-line"><span>Sincronizás TVD con tu CRM.</span></div>
-        <div class="flow-line"><span>Cambiaste un precio. La pantalla se actualiza sola.</span></div>
-        <div class="flow-line"><span>Vendiste una propiedad. Desaparece automáticamente.</span></div>
-        <div class="flow-line"><span>Cada aviso tiene un QR. El cliente escanea y te escribe por WhatsApp.</span></div>
-        <div class="flow-line"><span>Con tus colores, tu logo, tu branding.</span></div>
-    </div>
-
-    <div class="hero-ctas">
-        <a href="https://wa.me/5491125504134?text=Hola%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n%20del%20sistema%0AMi%20nombre%20es%3A%0ADe%3A%0AGracias" onclick="gtag('event','whatsapp_click')" target="_blank" class="btn-whatsapp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.978-1.413A9.953 9.953 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18a7.952 7.952 0 01-4.104-1.14l-.29-.173-3.007.854.87-2.931-.19-.302A7.952 7.952 0 014 12c0-4.418 3.582-8 8-8s8 3.582 8 8-3.582 8-8 8z"/></svg>Quiero más información</a>
-        <a href="#como-funciona" class="btn-ghost">Ver cómo funciona</a>
-    </div>
-
-    <!-- Franja de confianza -->
-    <ul class="trust-strip">
-        <li>Instalación en una visita</li>
-        <li>Pago único</li>
-        <li>Sin abonos</li>
-        <li>Soporte técnico incluido</li>
-        <li>Compatible con cualquier TV</li>
-    </ul>
-
     <!-- Visual antes/después — fotos reales -->
-    <div class="glass-wrap fade-in" style="margin-top:56px;">
+    <div class="glass-wrap fade-in" style="margin-top:36px;">
         <div class="glass-frame">
             <div class="glass-photo-wrap before">
                 <div class="glass-label">A4 · Impreso</div>
@@ -492,18 +478,49 @@
         </div>
         <div class="glass-caption">Así podría verse tu vidriera mañana.</div>
     </div>
+
+    <div class="hero-flow-card">
+        <div class="hero-flow">
+            <div class="flow-line"><span>Sincronizás TVD con tu CRM.</span></div>
+            <div class="flow-line"><span>Cambiaste un precio. La pantalla se actualiza sola.</span></div>
+            <div class="flow-line"><span>Vendiste una propiedad. Desaparece automáticamente.</span></div>
+            <div class="flow-line"><span>Cada aviso tiene QR → WhatsApp directo.</span></div>
+            <div class="flow-line"><span>Con tus colores, tu logo, tu branding.</span></div>
+        </div>
+        <div class="hero-ctas" style="margin-top:22px;">
+            <a href="#como-funciona" class="btn-ghost">Ver cómo funciona</a>
+        </div>
+    </div>
+
+    <!-- Franja de confianza -->
+    <ul class="trust-strip">
+        <li>Instalación en una visita</li>
+        <li>Pago único</li>
+        <li>Sin abonos</li>
+        <li>Soporte técnico incluido</li>
+        <li>Compatible con cualquier TV</li>
+    </ul>
 </div>
 
 <!-- ══ VIDEO DEBAJO DEL HERO ══ -->
 <section style="background:#08213e; padding:48px 24px 56px; text-align:center;">
     <div style="max-width:340px; margin:0 auto;">
         <div style="border-radius:18px; overflow:hidden; box-shadow:0 20px 50px rgba(0,0,0,.45); aspect-ratio:9/16; background:#000;">
-            <video controls playsinline poster="villar-caso-real.png" style="width:100%; height:100%; object-fit:cover; display:block;">
+            <video id="heroVideo" controls playsinline style="width:100%; height:100%; object-fit:cover; display:block;">
                 <source src="video-hero.mp4" type="video/mp4">
             </video>
         </div>
     </div>
 </section>
+<script>
+    (function(){
+        var v = document.getElementById('heroVideo');
+        if (!v) return;
+        v.addEventListener('ended', function(){
+            v.currentTime = 0;
+        });
+    })();
+</script>
 
 <!-- ══ FRASE DE PAUSA ══ -->
 <section class="pause-statement">
