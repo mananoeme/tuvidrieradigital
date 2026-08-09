@@ -75,7 +75,10 @@
         /* ── LOGO BAR ── */
         .logo-bar { background: var(--navy); padding: 48px 24px; text-align:center; }
         .logo-bar img { height:auto; width:auto; max-height:84px; max-width:220px; }
-        @media (max-width:480px){ .logo-bar img{ max-height:64px; max-width:70%; } }
+        @media (max-width:480px){
+            .logo-bar { padding: 32px 20px; }
+            .logo-bar img { max-height:none; max-width:100%; width:100%; height:auto; }
+        }
 
         /* ── HERO ── */
         .hero { background: var(--navy); color: #fff; padding: 56px 24px 44px; text-align: left; position: relative; overflow: hidden; }
