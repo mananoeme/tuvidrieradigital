@@ -145,7 +145,7 @@
         .screen-demo-caption { margin-top:14px; font-weight:700; font-size:.95rem; color:var(--navy); }
 
         /* ── SISTEMA EN ACCIÓN (uploader / panel) ── */
-        .sistema-section { padding-top:40px; }
+        .sistema-section { padding-top:40px; max-width:1000px; }
         .sistema-block { display:grid; grid-template-columns:1fr 1fr; gap:32px; align-items:center; margin-top:36px; }
         .sistema-block.reverse .sistema-img { order:2; }
         .sistema-img { position:relative; }
@@ -155,7 +155,9 @@
         .sistema-text p { color:#2a5070; font-size:.95rem; margin-bottom:0; }
         .sistema-text p.highlight { font-weight:700; color:var(--red); }
         @media (max-width:700px){ .sistema-block{ grid-template-columns:1fr; } .sistema-block.reverse .sistema-img{ order:0; } }
-        .sistema-block.panel-block { grid-template-columns:1.8fr 1fr; }
+        .sistema-block.panel-block { grid-template-columns:1fr; }
+        .sistema-block.panel-block .sistema-img { order:0; max-width:100%; margin:0; }
+        .sistema-block.panel-block .sistema-text { order:1; }
         @media (max-width:700px){ .sistema-block.panel-block{ grid-template-columns:1fr; } }
 
         /* ── PRECIO ── */
