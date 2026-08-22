@@ -144,6 +144,16 @@
         .screen-demo video { width:100%; border-radius:10px; box-shadow:0 20px 50px rgba(13,59,110,.25); display:block; background:#000; }
         .screen-demo-caption { margin-top:14px; font-weight:700; font-size:.95rem; color:var(--navy); }
 
+        /* ── SISTEMA EN ACCIÓN (uploader / panel) ── */
+        .sistema-section { padding-top:40px; }
+        .sistema-block { display:grid; grid-template-columns:1fr 1fr; gap:32px; align-items:center; margin-top:36px; }
+        .sistema-block.reverse .sistema-img { order:2; }
+        .sistema-img img { width:100%; display:block; border-radius:8px; border:1px solid #c5d8e8; box-shadow:0 8px 24px rgba(13,59,110,.1); background:#fff; }
+        .sistema-text h3 { font-size:1.1rem; font-weight:900; color:var(--navy); margin:8px 0 8px; }
+        .sistema-text p { color:#2a5070; font-size:.95rem; margin-bottom:0; }
+        .sistema-text p.highlight { font-weight:700; color:var(--red); }
+        @media (max-width:700px){ .sistema-block{ grid-template-columns:1fr; } .sistema-block.reverse .sistema-img{ order:0; } }
+
         /* ── PRECIO ── */
         .precio-section { padding:56px 24px; text-align:left; }
         .precio-inner { max-width:680px; margin:0 auto; }
@@ -288,6 +298,37 @@
             <li>Pago único — sin abono mensual</li>
             <li>Sigue funcionando aunque se corte internet o la luz</li>
         </ul>
+    </div>
+</section>
+
+<hr class="divider">
+
+<!-- ══ EL SISTEMA EN ACCIÓN (uploader / panel de control) ══ -->
+<section class="section sistema-section">
+    <div class="section-label">Por dentro</div>
+    <h2>Así se carga y se controla.</h2>
+    <p>Dos pantallas simples: una para publicar, otra para administrar lo publicado.</p>
+
+    <div class="sistema-block">
+        <div class="sistema-img">
+            <img src="uploader.png" alt="Panel de carga TVD — pegás el link de la propiedad para publicarla en pantalla">
+        </div>
+        <div class="sistema-text">
+            <div class="section-label">Uploader</div>
+            <h3>Copiás el link, lo pegás, listo.</h3>
+            <p class="highlight">Pegás la URL de Tokko o de tu sitio y esa propiedad ya está en tu vidriera. Sin formularios largos.</p>
+        </div>
+    </div>
+
+    <div class="sistema-block reverse">
+        <div class="sistema-text">
+            <div class="section-label">Panel de control</div>
+            <h3>Todo lo publicado, en un solo lugar.</h3>
+            <p class="highlight">Editar, pausar, previsualizar o borrar — con efecto inmediato en la vidriera. Lo manejás vos, desde donde estés.</p>
+        </div>
+        <div class="sistema-img">
+            <img src="panel-demo.png" alt="Panel de control TVD — administra todas las propiedades publicadas en la pantalla">
+        </div>
     </div>
 </section>
 
