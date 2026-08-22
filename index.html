@@ -148,9 +148,9 @@
         .sistema-section { padding-top:40px; }
         .sistema-block { display:grid; grid-template-columns:1fr 1fr; gap:32px; align-items:center; margin-top:36px; }
         .sistema-block.reverse .sistema-img { order:2; }
-        .sistema-img { overflow:hidden; border-radius:8px; }
-        .sistema-img img { width:100%; display:block; border-radius:8px; border:1px solid #c5d8e8; box-shadow:0 8px 24px rgba(13,59,110,.1); background:#fff; transition:transform .35s ease, box-shadow .35s ease; cursor:zoom-in; }
-        .sistema-img img:hover { transform:scale(1.12); box-shadow:0 16px 40px rgba(13,59,110,.25); position:relative; z-index:5; }
+        .sistema-img { position:relative; }
+        .sistema-img img { width:100%; display:block; border-radius:8px; border:1px solid #c5d8e8; box-shadow:0 8px 24px rgba(13,59,110,.1); background:#fff; transition:transform .35s ease, box-shadow .35s ease; cursor:zoom-in; position:relative; }
+        .sistema-img img:hover { transform:scale(1.5); box-shadow:0 30px 70px rgba(13,59,110,.4); border-color:var(--red); z-index:50; }
         .sistema-text h3 { font-size:1.1rem; font-weight:900; color:var(--navy); margin:8px 0 8px; }
         .sistema-text p { color:#2a5070; font-size:.95rem; margin-bottom:0; }
         .sistema-text p.highlight { font-weight:700; color:var(--red); }
